@@ -1,0 +1,87 @@
+
+
+
+body {
+
+    background-color: #f7f7f7;
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    
+}
+
+
+
+.banner {
+    background-color: rgb(255, 255, 255);
+    color: rgb(37, 37, 37);
+    border-radius: 8px;
+    padding: 24px 24px;
+    /* margin-left: 50px; */
+    /* margin-right: 50px; */
+    font-family: Roboto;
+    border-width: 1px;
+    border-color:rgb(206, 212, 218);
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+}
+
+.internal-link, .external-link {
+    /* font-family: "Open Sans"; */
+    display: flex;
+    color:black;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s;
+}
+
+.internal-link:hover {
+    text-decoration: underline;
+
+}
+
+.huggingface-link:hover {
+
+    color: #FF9E00;
+}
+
+.linkedin-link:hover {
+
+    color: #0A66C2;
+}
+
+.github-link:hover {
+
+    color: #76278B;
+}
+.nav-links {
+    display: flex;
+    gap: 16px;
+    color: black;
+    flex-wrap: wrap;
+
+
+}
+
+.name {
+    display: flex;
+    color: black;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: 350;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.name:hover {
+    color: rgb(100, 149, 255);
+}
+
+
+
