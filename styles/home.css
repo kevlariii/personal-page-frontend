@@ -83,5 +83,139 @@ body {
     color: rgb(100, 149, 255);
 }
 
+.section-title {
+
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    color: #767676;
+
+}
+
+.section-global {
+    width: 400px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(37, 37, 37);
+    border-radius: 8px;
+    padding: 24px 24px;
+    border-width: 1px;
+    border-color:rgb(206, 212, 218);
+    border-style: solid;
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    /* gap: 12px; */
 
 
+}
+.about-section {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: "Open Sans";
+    flex-wrap: wrap;
+    margin-left: 15px;
+    /* vertical-align: top; */
+
+}
+
+.profile-pic {
+    width: 100px;
+    border-radius: 5px;
+    /* vertical-align: top; */
+}
+
+.profile-pic-div {
+    width: 100px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.description {
+    width: 290px;
+    display: inline-block;
+    vertical-align: top;
+    
+}
+
+
+
+.affiliation-name {
+    font-family: "Open Sans";
+    font-size: 32px;
+    /* margin-bottom: 32px; */
+    color: #333;
+    /* font-family: Roboto, sans-serif; */
+}
+
+.affiliations-container {
+    margin-top: 10px;
+    display: flex;
+    /* justify-content: center; */
+    gap: 24px;
+    flex-wrap: wrap; /* Wrap on smaller screens */
+}
+
+.affiliation-card {
+    background-color: white;
+    border-color:rgb(206, 212, 218);
+    border-style: solid;
+    border-radius: 8px;
+    border-width: 1px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0.5;
+    transition:  box-shadow 0.25s, opacity 0.25s;
+}
+
+.affiliation-card:hover {
+    opacity: 1;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 12px; */
+    /* margin-bottom: 1px; */
+}
+
+.affiliation-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.affiliation-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.affiliation-description {
+    font-family: "Open Sans";
+    display: flex;
+    font-size: 14px;
+    color: #555;
+    /* margin-bottom: 20px; */
+    text-align: center;
+}
+
+.affiliation-dates {
+    font-size: 14px;
+    font-weight: 300;
+    color: #777;
+    text-align: center;
+    font-family: "Open Sans";
+    /* margin-top: auto; */
+}
