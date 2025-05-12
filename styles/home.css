@@ -107,14 +107,14 @@ body {
 
 
 .profile-pic {
-    width: 100px;
+    width: 100%;
     border-radius: 5px;
     margin-left: 4px;
     /* vertical-align: top; */
 }
 
 .profile-pic-div {
-    width: 100px;
+    width: 150px;
 
     /* display: inline-block; */
     /* vertical-align: top; */

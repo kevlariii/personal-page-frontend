@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Projects</title>
+        <lin k rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="/styles/projects.css">
+    
+    </head>   
+    
+    <body>
+        <header class="banner">
+            <div>
+                <a class="name" href="../index.html">
+                    Mohammed Sbaihi
+                </a>
+            </div>
+            <nav class="nav-links">
+                <code>
+                    <a class="internal-link" href="projects.html">.projects()</a>
+                </code>
+                <code>
+                    <a class="internal-link" href="/blog/blogs.html">.blogs()</a>
+                </code>
+                <code>
+                    <a class="external-link github-link" href="https://github.com/kevlariii" target="_blank">.github()</a>
+                </code>
+                <code>    
+                    <a class="external-link linkedin-link" href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank">.linkedin()</a>
+                </code>
+                <code>
+                    <a class="external-link huggingface-link" href="https://huggingface.co/MoSBAIHI" target="_blank">.huggingface()</a>
+                </code> 
+            </nav>
+   
+        </header>
+
+        <!-- DiffGuard Project Card -->
+        <div class="project-card">
+            <div class="project-card-text-container">
+                <div class="project-title" onclick="window.open('diffguard-project.html', '_blank')">
+                    DiffGuard
+                
+                </div>
+                <div class="project-subtitle">
+                    Text-Based Safety Checker for Diffusion Models
+
+                </div>
+                <div class="project-affiliation">
+                    <div class="project-aff-logo">
+                        <img src="/assets/cs-logo.png" alt="Logo 1" class="affiliation-logo">
+
+                    </div>
+                    
+                    <p class="project-aff">CentraleSupélec</p>         
+                </div>
+                
+                <div class="project-description">
+                    DiffGuard is a small (67M parameters) enocder-only transformer fine-tuned on a large corpus of image/video generation prompt. It can classify
+                    prompts into two labels: Safe & NSFW (Not Safe For Work). It is aimed to be used as safety checker for text-to-image & text-to-video generative models.
+                    The model is Open-Source under the Apache 2.0 license. As of May 2025, the model has gathered more than 150K total downloads on HuggingFace since its release in June 2024... <a class="view-more" href="diffguard-project.html">View More</a>
+
+
+                </div>
+
+                <div class="project-date">
+
+                    June 2024
+
+                </div>
+                
+                <div class="project-links-container">
+                    
+                    <div class="project-hf-link">
+                        <img class="hf-logo" src="/assets/huggingface-logo.png">
+
+                        <a class="project-hf" href="https://huggingface.co/eliasalbouzidi/distilbert-nsfw-text-classifier" target="_blank">
+                            model
+                        </a>
+                    </div>
+                    <div class="project-arxiv-link">
+                        <img class="arxiv-logo" src="/assets/arxiv-logo.png">
+
+                        <a class="project-arxiv" href="https://arxiv.org/abs/2412.00064" target="_blank">
+                            preprint
+                        </a>
+
+                    </div>
+                    
+                </div>
+
+
+            </div>
+            <div class="project-thumbnail-container" onclick="window.open('diffguard-project.html', '_blank')">
+                <img class="project-thumbnail" src="/assets/projects-assests/project-diffguard/diffguard-logo.png">
+
+            </div>
+
+            
+        </div>
+
+
+        <!-- ThreatDetect Project Card -->
+
+        <div class="project-card">
+            <div class="project-card-text-container">
+                <div class="project-title" onclick="window.open('threatdetect-project.html', '_blank')">
+                    ThreatDetect-C-Cpp
+                
+                </div>
+                <div class="project-subtitle">
+                    Code Weakness Detector for C/C++
+
+                </div>
+                <div class="project-affiliation">
+                    <div class="project-aff-logo">
+                        <img src="/assets/lemonlogo.png" alt="Logo 1" class="affiliation-logo">
+
+                    </div>
+                    
+                    <p class="project-aff">lemon42-ai</p>         
+                </div>
+                
+                <div class="project-description">
+                    ThreatDetect-C-Cpp is a derivative of ModernBERT-base trained to be a code classifier.
+Instead of binary classification ("safe", "unsafe"), The model classifies the input code into 7 labels: 'safe' (no vulnerability detected) and six other CWE weaknesses.
+ThreadDetect-C-Cpp can be integrated in code-related applications. For example, it can be used in pair with a code generator to detect vulnerabilities in the generated code. <a class="view-more" href="threatdetect-project.html">View More</a>
+
+
+
+                </div>
+
+                <div class="project-date">
+
+                    February 2025
+
+                </div>
+                
+                <div class="project-links-container">
+                    <div class="project-github-link">
+                        <img class="github-logo" src="/assets/github-logo.png">
+
+                        <a class="project-github" href="https://github.com/lemon42-ai/ThreatDetect-code-vulnerability-detection">
+                            code
+                        </a>
+                    </div>
+                    
+                    <div class="project-hf-link">
+                        <img class="hf-logo" src="/assets/huggingface-logo.png">
+
+                        <a class="project-hf" href="https://huggingface.co/lemon42-ai/ThreatDetect-C-Cpp" target="_blank">
+                            model
+                        </a>
+                    </div>
+                    <div class="project-hf-link">
+                        <img class="hf-logo" src="/assets/huggingface-logo.png">
+
+                        <a class="project-hf" href="https://huggingface.co/datasets/lemon42-ai/minified-diverseful-multilabels" target="_blank">
+                            dataset
+                        </a>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+            <div class="project-thumbnail-container" onclick="window.open('threatdetect-project.html', '_blank')">
+                <img class="project-thumbnail" src="/assets/projects-assests/project-threatdetect/threatdetect-thumbnail.png">
+
+            </div>
+
+            
+        </div>
+
+        <!-- GPUtopia Project Card -->
+
+        <div class="project-card">
+            <div class="project-card-text-container">
+                <div class="project-title" onclick="window.open('gputopia-project.html', '_blank')">
+                    GPUtopia
+                
+                </div>
+                <div class="project-subtitle">
+                    GPU-expert AI assistant for engineers
+
+                </div>
+                <div class="project-affiliation">
+                    <div class="project-aff-logo">
+                        <img src="/assets/lemonlogo.png" alt="Logo 1" class="affiliation-logo">
+
+                    </div>
+                    
+                    <p class="project-aff">lemon42-ai</p>         
+                </div>
+                
+                <div class="project-description">
+                    GPUtopia is a an AI-based platform aimed to help AI Engineers/developpers/Data Scientist choose the best GPU usage strategy.
+                    The responses are grounded (via a modern RAG pipeline) by a relevant corpus of resources (e.g. The Ultrascale Playbook by HF).
+                    Just plug in your setup (number of GPUs, nodes, model size etc) and let the tool give you the best usage strategy (parallelism method etc). <a class="view-more" href="gputopia-project.html">View More</a>
+
+
+
+                </div>
+
+                <div class="project-date">
+
+                    Ongoing Project
+
+                </div>
+                
+                <div class="project-links-container">
+                    <div class="project-github-link">
+                        <img class="github-logo" src="/assets/github-logo.png">
+
+                        <a class="project-github" href="https://github.com/lemon42-ai/gputopia-ui-rag">
+                            code
+                        </a>
+                    </div>
+                    
+                    
+                    
+                </div>
+
+
+            </div>
+            <div class="project-thumbnail-container" onclick="window.open('gputopia-project.html', '_blank')">
+                <img class="project-thumbnail" src="/assets/projects-assests/project-gputopia/gputopia.png">
+
+            </div>
+
+            
+        </div>
+
+
+    </body>
+
+
+</html>

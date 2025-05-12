@@ -1,0 +1,224 @@
+body {
+
+    background-color: #f7f7f7;
+    padding-top: 16px;
+    padding-left: 180px;
+    padding-right: 180px;
+    padding-bottom: 16px;
+    
+}
+
+.banner {
+    background-color: rgb(255, 255, 255);
+    color: rgb(37, 37, 37);
+    border-radius: 8px;
+    padding: 24px 24px;
+    /* margin-left: 50px; */
+    /* margin-right: 50px; */
+    font-family: Roboto;
+    border-width: 1px;
+    border-color:rgb(206, 212, 218);
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+}
+
+.internal-link, .external-link {
+    /* font-family: "Open Sans"; */
+    display: flex;
+    color:black;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s;
+}
+
+.internal-link:hover {
+    text-decoration: underline;
+
+}
+
+.huggingface-link:hover {
+
+    color: #FF9E00;
+}
+
+.linkedin-link:hover {
+
+    color: #0A66C2;
+}
+
+.github-link:hover {
+
+    color: #76278B;
+}
+.nav-links {
+    display: flex;
+    gap: 16px;
+    color: black;
+    flex-wrap: wrap;
+
+
+}
+
+.name {
+    display: flex;
+    color: black;
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: 350;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.name:hover {
+    color: rgb(100, 149, 255);
+}
+
+.project-card {
+    display: flex;
+    margin-top: 40px;
+    padding:10px;
+    align-items: center;
+    gap: 20px;
+    border-top: solid;
+    border-bottom: solid;
+    border-width: 0.6px;
+    border-color: rgb(183, 183, 183);
+
+}
+
+
+
+
+
+.project-title {
+    font-family: "Open Sans";
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.15s;
+}
+
+.project-title:hover {
+    cursor: pointer;
+    color:rgb(100, 149, 255);
+}
+
+.project-subtitle {
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: 350;
+    margin-top: 5px;
+}
+
+.project-affiliation {
+    
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.project-aff-logo img {
+    width: 30px;
+}
+
+.project-aff {
+    margin: 0;
+    font-family: "Open Sans";
+    font-size: 14px;
+    margin-bottom: 2px;
+    font-weight: 400;
+    color: rgb(90, 89, 89);
+}
+
+.project-description {
+    margin-top:0;
+    font-family: "Open Sans";
+    font-size: 13px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.view-more {
+    font-family: "Open Sans";
+    font-size: 13px;
+    font-weight: 480;
+    color:black;
+    text-decoration: none;
+}
+
+.project-date {
+    font-family: "Open Sans";
+    font-size: 12px;
+    font-weight: 300;
+    color:gray;
+}
+
+.project-links-container {
+    display: flex;
+    gap: 20px;
+    justify-content: start;
+    margin-top: 10px;
+    /* border-top: solid; */
+    /* border-width: 0.6px; */
+    /* border-color: rgb(183, 183, 183); */
+
+}
+
+.project-github-link, .project-hf-link, .project-arxiv-link {
+    margin-top: 7px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    
+}
+
+
+
+.github-logo, .hf-logo, .arxiv-logo {
+height: 16px;
+}
+
+.project-github, .project-hf, .project-arxiv {
+
+    font-family: "Open Sans";
+    font-weight: 300;
+    font-size: 14px;
+    color: gray;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.project-github:hover {
+    color: #76278B;
+    cursor: pointer;
+}
+
+.project-hf:hover {
+    color: #FF9E00;
+    cursor: pointer;
+
+}
+
+.project-arxiv:hover {
+    color: rgb(185, 50, 50);
+    cursor: pointer;
+
+}
+
+
+
+.project-thumbnail {
+    width:200px;
+    transition: opacity 0.15s;
+}
+
+.project-thumbnail:hover {
+    cursor:pointer;
+    opacity: 0.7;
+}
