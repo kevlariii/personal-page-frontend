@@ -24,6 +24,13 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
+   
+    position: sticky;
+    top: 10px;
+    backdrop-filter: blur(8px); /* blur effect */
+    -webkit-backdrop-filter: blur(8px); /* for Safari */
+    background-color: rgba(255, 255, 255, 0.7); /* translucent so blur is visible */
+    z-index: 1000; /* stay above content */
 
 }
 
@@ -76,4 +83,219 @@ body {
 
 .name:hover {
     color: rgb(100, 149, 255);
+}
+
+.article-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.article-title {
+    font-family: "Open Sans";
+    font-size: 30px;
+    font-weight: 700;
+    /* margin-bottom: 15px; */
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+    border-color: #9a9a9a;
+}
+
+.article-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    border-color: #9a9a9a;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    gap: 40px;
+    margin-bottom: 25px;
+
+}
+
+.project-github-link, .project-hf-link, .project-arxiv-link {
+    /* margin-top: 7px; */
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    
+}
+
+.github-logo, .hf-logo, .arxiv-logo {
+    height: 16px;
+    }
+    
+    .project-github, .project-hf, .project-arxiv {
+    
+        font-family: "Open Sans";
+        font-weight: 300;
+        font-size: 14px;
+        color: gray;
+        text-decoration: none;
+        transition: color 0.15s;
+    }
+    
+    .project-github:hover {
+        color: #76278B;
+        cursor: pointer;
+    }
+    
+    .project-hf:hover {
+        color: #FF9E00;
+        cursor: pointer;
+    
+    }
+    
+    .project-arxiv:hover {
+        color: rgb(185, 50, 50);
+        cursor: pointer;
+    
+    }
+    
+
+.article-authors {
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-weight: 300;
+    flex: 1
+    /* margin-bottom: 10px; */
+}
+
+.article-date {
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+    /* margin-bottom: 10px; */
+
+}
+.article-read-time {
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-weight: 300;
+    /* margin-bottom: 15px; */
+    color:#8d1f1f
+}
+
+.article-thumbnail {
+    /* padding-left:69; */
+    /* padding-right: 69; */
+    text-align: center;
+    margin-bottom:20px;
+    
+}
+.article-thumbnail img {
+    width: 700px;
+}
+
+p {
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: 350;
+}
+
+.article-section-title {
+    font-family: "Open Sans";
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.article-subsection-title {
+    font-family: "Open Sans";
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.article-hyperlink {
+    text-decoration: none;
+    color:#2b81d8;
+}
+
+strong {
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: 600;
+    
+}
+
+
+.see-figure {
+    font-family: "Open Sans";
+    font-size:16px;
+    font-weight: 400;
+    color: rgb(109, 100, 100);
+    cursor: pointer;
+}
+
+figure {
+    display: block;
+    margin:auto;
+}
+
+figure img {
+    border-radius: 10px;
+    /* padding: 10px; */
+}
+figcaption {
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-weight: 400;
+    color:#5b5b5b;
+    text-align: center;
+}
+
+.article-figure {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.horizontal-line-light {
+    border: none;
+    height: 1px;
+    background: gray;
+  
+}
+
+table, th, td{
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: "Open Sans";
+    font-weight: 350;
+}
+th {
+    font-weight: 700;
+}
+th, td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+table {
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+}
+
+ul, li {
+    font-family: "Open Sans";
+    font-weight: 350;
+
+}
+
+.table-container {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+
+.footer {
+    
+    color: gray;
+    margin-top: 30px;
+    font-size: 11px;
+
 }

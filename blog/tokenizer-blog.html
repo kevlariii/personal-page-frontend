@@ -42,10 +42,363 @@
         </header>
 
 
+        <div class="article-container">
+            <div class="article-title">Code-Aware Tokenization: ModernBERT</div>
+            <div class="article-header">
+            <div class="article-authors">Mohammed Sbaihi</div>
+            <div class="project-github-link">
+                <img class="github-logo" src="/assets/github-logo.png">
+
+                <a class="project-github" href="https://github.com/kevlariii/ModernBERT-code-tokenizer-insights/tree/main" target="_blank">
+                    code
+                </a>
+            </div>
+
+            <div class="article-date">January 2025</div>
+
+
+            </div>
+            
+            <div class="article-figure">
+                <figure id="figure-5">
+                    <img src="/assets/blogs-assets/tokenizer/show_tokens.png" alt="figure-5" style="width:800px">
+                </figure>
+            </div>
+            <div class="article-text">
+                
+                    <h2 class="article-section-title">Introduction</h2>
+                    <p >
+                      <a class="article-hyperlink" href="https://arxiv.org/pdf/2412.13663" target="_blank">ModernBERT</a>(2024) is the latest encoder-only model at the time of this blog's creation. The authors present it as a <strong class="article-bold">Smarter, Better, Faster, and Longer</strong> version of BERT, designed to improve performance across various NLP tasks.
+                    </p>
+                    <p >
+                      One of the key claims in the paper is that ModernBERT's tokenizer—built using an advanced BPE-based tokenization method—is inherently <strong class="article-bold">"code-aware."</strong> This claim stems from the fact that it was trained on a diverse mix of code and natural language data.
+                    </p>
+                    <p> 
+                      The objective of this analysis is to rigorously evaluate ModernBERT's tokenizer in the context of <strong class="article-bold">code tokenization</strong> and compare its performance to that of <a class="article-hyperlink" href="https://arxiv.org/pdf/1810.04805" target="_blank">BERT</a>(2018) and <a class="article-hyperlink" href="https://arxiv.org/pdf/2002.08155" target="_blank">CodeBERT</a>(2020). Through various tests, this study aims to provide <strong class="article-bold">quantifiable insights</strong> into ModernBERT’s ability to handle programming constructs. Ultimately, this should help developers and researchers decide whether ModernBERT is the right choice for their applications, such as <strong class="article-bold">retrieval-augmented generation (RAG)</strong> and other <strong class="article-bold">code-related tasks.</strong>
+                    </p>
+                  
+                
+                    <p >
+                      Before diving into the evaluations, it is true that BERT is an older model, but it remains widely used. While BERT was not trained on code and has a vocabulary size of <strong class="article-bold">30K</strong>, I include it here as a <strong class="article-bold">baseline</strong> for comparison.
+                    </p>
+                    <p >
+                      On the other hand, <strong class="article-bold">CodeBERT</strong> was trained on a large <strong class="article-bold">code corpus</strong> and has a vocabulary size similar to <strong class="article-bold">ModernBERT</strong> (<strong class="article-bold">50K</strong>). <a class="see-figure" href="#fig-vocab-size">See Figure 1</a>
+                    </p>
+           
+                    <div class="article-figure">
+                    <figure id="fig-vocab-size">
+                        <img src="/assets/blogs-assets/tokenizer/vocab_size.png" alt="figure-1" style="width:500px">
+                        <figcaption>Figure 1- Vocabulary size of BERT, CodeBERT & ModernBERT</figcaption>
+                    </figure>
+                    </div>
+
+                    <hr class="horizontal-line-light">
+                  
+                    <h2 class="article-section-title">Whitespace & Tabs</h2>
+                  
+                    <h3 class="article-subsection-title">Whitespaces</h3>
+                    <p>
+                      Whitespaces play a <strong>critical role</strong> in code formatting and readability. The goal of this study is to determine whether a tokenizer (<strong>BERT, CodeBERT, and ModernBERT</strong>) represents <strong>different-length whitespace sequences as a single token or splits them into multiple tokens.</strong>
+                    </p>
+                    <p>
+                      For example, does a sequence of <strong>two spaces <code>("  ")</code></strong> get tokenized as a single token, or does the tokenizer split it into two separate tokens? The same question applies to longer sequences of length <strong>L</strong>. <a class="see-figure" href="#figure-2">See Figure 2</a>
+                    </p>
+                  
+                    <div class="article-figure">
+                        <figure id="figure-2">
+                            <img src="/assets/blogs-assets/tokenizer/whitspaces_and_tabs.png" alt="figure-1" style="width:500px">
+                            <figcaption>Figure 2: Longest Whitespace/Tab Sequence With A Single Token</figcaption>
+                        </figure>
+                    </div>
+
+                  
+                    <p>
+                      As expected, <strong>BERT does not have a dedicated token for whitespace <code>(" ")</code></strong> This is because BERT uses the prefix <strong>"##"</strong> to indicate that a token is a <strong>continuation</strong> of the previous token. This mechanism allows BERT to implicitly track <strong>spaces</strong> between words without explicitly encoding whitespace tokens.
+                    </p>
+                    <p>
+                      For example, the word <strong>"introduction"</strong> might be tokenized as: ['introdu', '##tion']. This means that the token <strong>"##tion"</strong> is <strong>connected to the previous token</strong> ("introdu") without an explicit space before it.
+                    </p>
+                    <p>
+                      CodeBERT, on the other hand, <strong>has a single token for a single whitespace.</strong> This means that two spaces <code>("  ")</code> are split into two separate tokens. As a result, this tokenizer can be considered less code-aware in comparison to ModernBERT, especially when handling multiple consecutive whitespaces in code.
+                    </p>
+                    <p>
+                      ModernBERT, however, takes a more efficient approach. <strong>maps sequences of up to 24 consecutive whitespaces to a single token.</strong> This allows it to handle longer whitespace sequences more efficiently. For example, a whitespace sequence of length 10 is tokenized into a single token. This is a significant advantage because ModernBERT reduces the number of tokens required for long sequences of spaces, unlike CodeBERT, which would require L tokens for a whitespace sequence of length L.
+                    </p>
+                  
+                    <h3 class="article-subsection-title">Indentation (Tabs)</h3>
+                    <p>When tokenizing a tab <code>("\t")</code>, we get the following results:</p>
+                  
+
+                  
+                    <table>
+                      <thead>
+                        <tr><th>Tokenizer</th><th>Tokenized Result</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>BERT</td><td><code>[]</code></td></tr>
+                        <tr><td>CodeBERT</td><td><code>['ĉ']</code></td></tr>
+                        <tr><td>ModernBERT</td><td><code>['ĉ']</code></td></tr>
+                      </tbody>
+                    </table>
+                  
+                  
+                    <p>
+                      As observed, <strong>BERT</strong> completely ignores tabs, just like it does with whitespaces. In contrast, both <strong>CodeBERT</strong> and <strong>ModernBERT</strong> map the tab <code>("\t")</code> to the same token <code>'ĉ'</code>, which is present in the vocabulary of both models. While it is unclear whether <strong>CodeBERT</strong> uses BPE for tokenization, the similarity to ModernBERT’s behavior suggests that it might, since ModernBERT uses BPE.
+                    </p>
+                    <p>
+                      <a class="see-figure" href="#figure-2">Figure 2</a> illustrates the tab sequences that are mapped to a single token by the three tokenizers. Notably, the <strong>CodeBERT</strong> tokenizer splits any tab sequence longer than 1 (e.g., a sequence of three tabs <code>\t\t\t</code>) into separate tokens. On the other hand, <strong>ModernBERT</strong> can handle up to <strong>6 consecutive tabs</strong> as a single token.
+                    </p>
+                    <p>
+                      This behavior makes <strong>ModernBERT</strong> highly efficient for code representation, especially in programming languages like <strong>Python</strong>, where indentation (tabs) plays a critical role in defining code structure.
+                    </p>
+                  
+                    <h3 class="article-subsection-title">Tab-Space Merge</h3>
+                    <p>
+                      When tokenizing a sequence of mixed tabs and whitespaces, we find that <strong>ModernBERT</strong> is the only tokenizer that merges a whitespace and a tab (in this exact order) into a single token. Here are the results of tokenizing the sequence <code>"\t \t \t"</code>:
+                    </p>
+                  
+                    <table>
+                      <thead>
+                        <tr><th>Tokenizer</th><th>Tokenized Result</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>BERT</td><td><code>[]</code></td></tr>
+                        <tr><td>CodeBERT</td><td><code>['ĉ', 'Ġ', 'ĉ', 'Ġ', 'ĉ']</code></td></tr>
+                        <tr><td>ModernBERT</td><td><code>['ĉ', 'Ġĉ', 'Ġĉ']</code></td></tr>
+                      </tbody>
+                    </table>
+                  
+                    <p>
+                      As seen in the table, <strong>BERT</strong> ignores the sequence entirely. <strong>CodeBERT</strong>, on the other hand, tokenizes each part of the sequence separately, treating each tab and space as distinct tokens. <strong>ModernBERT</strong>, however, merges a tab and space (in this exact order) into a single token, resulting in a more compact representation.
+                    </p>
+                    <p>
+                      This behavior further demonstrates ModernBERT’s capability to better handle code sequences, providing more efficient tokenization when dealing with tab-space combinations, which are common in programming.
+                    </p>
+                  
+                    <hr class="horizontal-line-light">
+                  
+                    <h2 class="article-section-title">Keywords & Operators</h2>
+                    <p>
+                      In this section, we analyze how the three tokenizers handle keywords and operators in three programming languages: <strong>Python, Java and C++</strong> </p>
+                    <p>
+                      <strong>Keywords</strong> are reserved words in a programming language that have a predefined meaning and cannot be used as identifiers (e.g., variable names or function names). These are fundamental parts of the syntax in any language.
+                    </p>
+                    <p>
+                      <strong>Operators</strong> are symbols used to perform operations on variables and values. For example, arithmetic operators like <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code> perform mathematical operations.
+                    </p>
+                  
+                    <h3 class="article-subsection-title">Keywords (Python, Java, C++)</h3>
+                    <p>To have the most accurate sets of keywords for the three languages:</p>
+                    
+                    <ul >
+                      <li><strong>Python</strong>: We will use the built-in list of Python keywords.</li>
+                      <li><strong>Java</strong>: The official list (50 elements of Java SE8+): <a class="article-hyperlink" href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-Keyword" target="_blank">Java Doc</a></li>
+                      <li><strong>C++ (C++11 only)</strong>: <a class="article-hyperlink"  href="https://en.cppreference.com/w/cpp/keyword" target="_blank">C++ Doc</a></li>
+                    </ul>
+                
+                  
+                    <table>
+                      <thead>
+                        <tr><th>Programming Language</th><th>Tested Keywords</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Python</td><td>35</td></tr>
+                        <tr><td>Java</td><td>50</td></tr>
+                        <tr><td>C++</td><td>85</td></tr>
+                      </tbody>
+                    </table>
+                  
+                    <p><em>N.B</em> The keywords and operators data are available in pickle files in <a class="article-hyperlink" href="https://github.com/kevlariii/ModernBERT-code-tokenizer-insights" target="_blank">this repo</a> . Feel free to use them.</p>
+                    <p>
+                      The measured <strong>KPI</strong> here is the <strong>share of keywords that are tokenized as a single token</strong> (i.e., not split).
+                    </p>
+                    <p>
+                      <a class="see-figure" href="#figure-3">Figure 3</a> shows this KPI for the three tokenizers on the keywords of Python, Java, and C++.
+                    </p>
+                  
+                    <p>
+                      An interesting insight here is that <strong>BERT</strong>, which was not trained on code, performs very well on the Python and Java sets. In fact, it performs better than <strong>ModernBERT</strong> on the Java set. However, this doesn't reveal much about the code abilities of BERT. This is because many keywords in Python and Java are common English words (e.g., <code>else</code>, <code>true</code>, <code>false</code>, <code>try</code>). This assumption is further supported by the fact that BERT struggles with C++ keywords, which tend to be more complex.
+                    </p>
+                    <p>
+                      <strong>CodeBERT</strong> shows a medium but stable performance. Its results can be explained by the fact that it was trained on six different programming languages, which may have led to some loss of tokenization efficiency in favor of better generalization.
+                    </p>
+                    <p>
+                      <strong>ModernBERT</strong>, on the other hand, consistently shows that it is well-aligned with programming languages.
+                    </p>
+                  
+                    <div class="article-figure">
+                        <figure id="figure-3">
+                            <img src="/assets/blogs-assets/tokenizer/keywords_share.png" alt="figure-3" style="width:500px">
+                            <figcaption>Figure 3: Share of Keywords (Python, Java, C++) Tokenized as a Single Token.</figcaption>
+                        </figure>
+                    </div>
+                  
+                    <p>
+                      To dig a bit deeper, let's tokenize the <code>'elif'</code> keyword, which is very Python-specific. We get the following results:
+                    </p>
+                  
+                    <table>
+                      <thead>
+                        <tr><th>Tokenizer</th><th>Tokenized 'elif'</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>BERT</td><td><code>['eli', '##f']</code></td></tr>
+                        <tr><td>CodeBERT</td><td><code>['el', 'if']</code></td></tr>
+                        <tr><td>ModernBERT</td><td><code>['elif']</code></td></tr>
+                      </tbody>
+                    </table>
+                  
+                    <p>
+                      This proves that <strong>BERT</strong> still struggles with keywords that are not common English words. <strong>CodeBERT</strong> splits it into two tokens, while <strong>ModernBERT</strong> keeps it intact.
+                    </p>
+                  
+                    <h3 class="article-subsection-title">Operators</h3>
+
+    <h4 style="font-family: 'Open Sans'; font-size: 16px">Why Operators Matter</h4>
+    <p>Operators are fundamental to how code functions, and how well they are tokenized impacts the efficiency and effectiveness of any model working with code. Tokenizing operators properly is crucial for:</p>
+    <ul>
+      <li>Maintaining the integrity of the code.</li>
+      <li>Ensuring correct representation of syntax for downstream tasks like code completion, code summarization, or error detection.</li>
+      <li>Improving efficiency in tokenization—if operators are tokenized as single tokens, it could reduce the overall number of tokens needed to represent a piece of code.</li>
+    </ul>
+
+    <p>For operators, we will use the following documentation pages:</p>
+    <ul>
+      <li><a class="article-hyperlink" href="https://docs.python.org/3/library/operator.html" target="_blank">Python Doc</a></li>
+      <li><a class="article-hyperlink" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html" target="_blank">Java Doc</a></li>
+      <li><a class="article-hyperlink" href="https://www.programiz.com/cpp-programming/operators" target="_blank">C++ Doc</a></li>
+    </ul>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Programming Language</th>
+          <th>Tested Operators</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Python</td>
+          <td>34</td>
+        </tr>
+        <tr>
+          <td>Java</td>
+          <td>32</td>
+        </tr>
+        <tr>
+          <td>C++</td>
+          <td>36</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="article-figure">
+        <figure id="figure-4">
+            <img src="/assets/blogs-assets/tokenizer/keywords_share.png" alt="figure-4" style="width:500px">
+            <figcaption>Figure 4: Share of Operators (Python, Java, C++) Tokenized as a Single Token</figcaption>
+        </figure>
+    </div>
+
+    <p>Unlike keywords, operators present a real challenge for <strong>BERT</strong>. Since it was not trained on a large code corpus, it struggles significantly with operators. <strong>CodeBERT</strong> and <strong>ModernBERT</strong> have decent performances, but <strong>ModernBERT</strong>'s tokenizer seems to be the best in handling operators.</p>
+
+    <hr class="horizontal-line-light">
+
+    <h2 class="article-section-title">Test Data for Reproduction</h2>
+    <p>Finally, here is the dataset containing all the test results. Feel free to reproduce the experiments, but don't forget to <strong>cite this blog/repository</strong>.</p>
+
+
+    <div class="table-container">
+    <table class="large-table">
+      <thead>
+        <tr>
+          <th>Tokenizer</th>
+          <th>Vocab Size</th>
+          <th>Longest Whitespace Token</th>
+          <th>Longest Tabs Token</th>
+          <th>Tab-Space Merging</th>
+          <th>Python Keywords (%)</th>
+          <th>Java Keywords (%)</th>
+          <th>C++ Keywords (%)</th>
+          <th>Python Operators (%)</th>
+          <th>Java Operators (%)</th>
+          <th>C++ Operators (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BERT</strong></td>
+          <td>30,522</td>
+          <td>0</td>
+          <td>0</td>
+          <td>❌</td>
+          <td>91.4</td>
+          <td>88.0</td>
+          <td>56.5</td>
+          <td>50.0</td>
+          <td>43.8</td>
+          <td>38.9</td>
+        </tr>
+        <tr>
+          <td><strong>CodeBERT</strong></td>
+          <td>50,265</td>
+          <td>1</td>
+          <td>1</td>
+          <td>❌</td>
+          <td>82.9</td>
+          <td>76.0</td>
+          <td>62.4</td>
+          <td>67.6</td>
+          <td>75.0</td>
+          <td>66.7</td>
+        </tr>
+        <tr>
+          <td><strong>ModernBERT</strong></td>
+          <td>50,280</td>
+          <td>24</td>
+          <td>6</td>
+          <td>✅</td>
+          <td>91.4</td>
+          <td>86.0</td>
+          <td>71.8</td>
+          <td>82.4</td>
+          <td>90.6</td>
+          <td>86.1</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+
+   
+
+
+</div>
+
+                  
+                  
+
+
+
+
+            </div>
+            
+
+           
+                       
+          
+        </div>
+
+
      
 
 
     </body>
+
+    <footer class="footer">
+        <div class="footer-content">
+          <code>© 2025 Mohammed Sbaihi. All rights reserved.</code>
+        </div>
+      </footer>
 
 
 </html>
