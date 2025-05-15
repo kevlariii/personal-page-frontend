@@ -8,6 +8,7 @@ body {
     padding-left: 180px;
     padding-right: 180px;
     padding-bottom: 16px;
+    min-width: 700px;
     
 }
 
@@ -40,7 +41,7 @@ body {
 }
 
 .internal-link, .external-link {
-    /* font-family: "Open Sans"; */
+    /* font-family: "Roboto Flex"; */
     display: flex;
     color:black;
     text-decoration: none;
@@ -79,7 +80,7 @@ body {
 .name {
     display: flex;
     color: black;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 350;
     text-decoration: none;
@@ -90,9 +91,58 @@ body {
     color: rgb(100, 149, 255);
 }
 
+.about-section {
+    display: flex;
+    
+    
+    align-items: top;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    gap: 50px;
+    padding-left: 130px;
+    padding-right: 130px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid;
+    border-color: #777;
+
+}
+
+.about-section-text-layout {
+    flex: 1;
+}
+
+.about-section-image-layout {
+    flex: auto;
+}
+
+.hi {
+    width: 278px;
+}
+
+.hi-text {
+    font-family: "Roboto Flex";
+    
+}
+
+.about-section-image-layout img{
+    width: 300px;
+    border-radius: 10px;
+
+}
+
+h1 {
+    font-family: "Roboto Flex";
+    border-bottom: 6px solid;
+    border-color:  #ffe32e;
+    margin-top: 0px;
+
+
+}
 .section-title {
 
     display: block;
+    font-family: "Roboto Flex";
     margin-top: 30px;
     margin-bottom: 5px;
     font-size: 20px;
@@ -132,22 +182,43 @@ body {
     flex-wrap: wrap;
     flex: 1;
     color: #333;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     /* display: inline-block; */
     /* vertical-align: top; */
     
 }
 
+.aff-title {
+    width: 130px;
+    display: flex;
+    justify-content: start;
+    font-family: "Roboto Flex";
+    font-size: 22px;
+    font-weight: bold;
+    border-left: 2px solid;
+    /* border-top: 2px solid; */
+    /* border-top: 150px; */
+    border-color: #ffe32e;
+    /* border-top-left-radius: 7px; */
+    
+    padding-left: 10px;
+    margin-bottom: 20px;
+    
+}
 
 .affiliations {
     display: block;
+    padding-top: 20px;
+    border-bottom: 1px solid;
+    border-color: #777;
+    padding-bottom: 30px;
     /* margin-left: 180px; */
     /* margin-right: 180px; */
 }
 
 .affiliation-name {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 32px;
     /* margin-bottom: 32px; */
     color: #333;
@@ -219,7 +290,7 @@ body {
 }
 
 .affiliation-description {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     /* display: flex; */
     font-size: 14px;
     color: #000000;
@@ -232,13 +303,31 @@ body {
     font-weight: 300;
     color: #777;
     text-align: center;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     /* margin-top: auto; */
 }
 
 
 .latest-article-section {
-    display: block
+    display: block;
+    padding-top: 30px;
+    border-bottom: 1px solid;
+    border-color: #777;
+    padding-bottom: 30px;
+}
+
+.latest-article-section-title{
+    font-family: "Roboto Flex";
+    font-size: 22px;
+    font-weight: bold;
+    border-left: 2px solid;
+    /* border-top: 2px solid; */
+    /* border-top: 150px; */
+    border-color: #ffe32e;
+    /* border-top-left-radius: 7px; */
+    
+    padding-left: 10px;
+    margin-bottom: 20px;
 }
 
 .latest-article-card {
@@ -269,7 +358,7 @@ body {
 }
 
 .latest-article-title {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     margin-top: 0px;
     margin-bottom: 0px;
     font-size: 20px;
@@ -291,7 +380,7 @@ body {
 
 .latest-article-aff {
     margin: 0;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     margin-bottom: 2px;
     font-weight: 400;
@@ -304,7 +393,7 @@ body {
     margin-top:35px;
     margin-bottom:0px;
     color: gray;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 12px;
     font-weight: 300;
 }
@@ -312,14 +401,14 @@ body {
 .latest-article-text {
     margin-top: 20px;
     margin-bottom:10px;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 13px;
     font-weight: 350;
     
 }
 
 .read-more-latest-article {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-weight: 600;
     color: rgb(57, 89, 219)
 }
@@ -341,7 +430,7 @@ body {
 
 
 .footer {
-    
+    font-family: "Roboto Flex";
     color: gray;
     margin-top: 30px;
     font-size: 11px;

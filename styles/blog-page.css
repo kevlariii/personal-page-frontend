@@ -5,6 +5,8 @@ body {
     padding-left: 180px;
     padding-right: 180px;
     padding-bottom: 16px;
+    min-width: 700px;
+
     
 }
 
@@ -35,7 +37,7 @@ body {
 }
 
 .internal-link, .external-link {
-    /* font-family: "Open Sans"; */
+    /* font-family: "Roboto Flex"; */
     display: flex;
     color:black;
     text-decoration: none;
@@ -74,7 +76,7 @@ body {
 .name {
     display: flex;
     color: black;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 350;
     text-decoration: none;
@@ -91,7 +93,7 @@ body {
 }
 
 .article-title {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 30px;
     font-weight: 700;
     /* margin-bottom: 15px; */
@@ -127,7 +129,7 @@ body {
     
     .project-github, .project-hf, .project-arxiv {
     
-        font-family: "Open Sans";
+        font-family: "Roboto Flex";
         font-weight: 300;
         font-size: 14px;
         color: gray;
@@ -154,7 +156,7 @@ body {
     
 
 .article-authors {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     font-weight: 300;
     flex: 1
@@ -162,7 +164,7 @@ body {
 }
 
 .article-date {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     font-weight: 300;
     font-style: italic;
@@ -170,7 +172,7 @@ body {
 
 }
 .article-read-time {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     font-weight: 300;
     /* margin-bottom: 15px; */
@@ -189,19 +191,19 @@ body {
 }
 
 p {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 350;
 }
 
 .article-section-title {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 22px;
     font-weight: 500;
 }
 
 .article-subsection-title {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 18px;
     font-weight: 500;
 }
@@ -212,7 +214,7 @@ p {
 }
 
 strong {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 600;
     
@@ -220,7 +222,7 @@ strong {
 
 
 .see-figure {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size:16px;
     font-weight: 400;
     color: rgb(109, 100, 100);
@@ -237,7 +239,7 @@ figure img {
     /* padding: 10px; */
 }
 figcaption {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 400;
     color:#5b5b5b;
@@ -260,7 +262,7 @@ table, th, td{
     border: 1px solid;
     border-collapse: collapse;
     text-align: center;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-weight: 350;
 }
 th {
@@ -278,7 +280,7 @@ table {
 }
 
 ul, li {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-weight: 350;
 
 }

@@ -5,6 +5,8 @@ body {
     padding-left: 180px;
     padding-right: 180px;
     padding-bottom: 16px;
+    min-width: 700px;
+
     
 }
 
@@ -35,7 +37,7 @@ body {
 }
 
 .internal-link, .external-link {
-    /* font-family: "Open Sans"; */
+    /* font-family: "Roboto Flex"; */
     display: flex;
     color:black;
     text-decoration: none;
@@ -74,7 +76,7 @@ body {
 .name {
     display: flex;
     color: black;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 350;
     text-decoration: none;
@@ -103,7 +105,7 @@ body {
 
 
 .blog-title {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 20px;
     font-weight: bold;
     transition: color 0.15s;
@@ -115,7 +117,7 @@ body {
 }
 
 .blog-authors {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     font-weight: 350;
     margin-top: 5px;
@@ -136,7 +138,7 @@ body {
 
 .blog-aff {
     margin: 0;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 14px;
     margin-bottom: 2px;
     font-weight: 400;
@@ -145,14 +147,14 @@ body {
 
 .blog-description {
     margin-top:7px;
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 13px;
     font-weight: 300;
     margin-bottom: 10px;
 }
 
 .read-blog {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 13px;
     font-weight: 480;
     color:black;
@@ -160,7 +162,7 @@ body {
 }
 
 .blog-date {
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-size: 12px;
     font-weight: 300;
     color:gray;
@@ -193,7 +195,7 @@ height: 16px;
 
 .blog-github, .blog-hf, .blog-arxiv {
 
-    font-family: "Open Sans";
+    font-family: "Roboto Flex";
     font-weight: 300;
     font-size: 14px;
     color: gray;
