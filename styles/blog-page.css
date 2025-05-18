@@ -293,10 +293,46 @@ ul, li {
 
 
 
+
 .footer {
-    
-    color: gray;
-    margin-top: 30px;
+    margin-top: 40px;
+    font-family: "Roboto Flex";
+    color: rgb(26, 26, 26);
+    /* margin-top: 30px; */
     font-size: 11px;
+    background-color: #ffe32e;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    display: block;
+    justify-content: center;
+    padding: auto;
+
+}
+
+.footer-text {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-github img, .footer-linkedin img, .footer-hf img {
+    height: 18px;
+}
+
+.footer-github, .footer-hf, .footer-linkedin {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.25s;
+}
+
+.footer-github:hover, .footer-hf:hover, .footer-linkedin:hover {
+    cursor: pointer;
+    background-color: #ecd123;
 
 }

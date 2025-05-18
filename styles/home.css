@@ -106,7 +106,7 @@ body {
     padding-top: 30px;
     padding-bottom: 30px;
     padding: 30px;
-    
+    margin-top: 30px;
 /*     
     align-items: top;
     justify-content: center;
@@ -153,10 +153,22 @@ h1 {
     border-bottom: 6px solid;
     border-color:  #ffe32e;
     margin-top: 0px;
+    color: black;
 
 
 }
-.section-title {
+
+h2 {
+    font-family: "Roboto Flex";
+    border-bottom: 6px solid;
+    border-color:  #ffe32e;
+    margin-top: 0px;
+    color: black;
+    font-size: 28px;
+    margin-bottom: 0px;
+
+}
+/* .section-title {
 
     display: block;
     font-family: "Roboto Flex";
@@ -166,7 +178,7 @@ h1 {
     font-weight: normal;
     color: #767676;
 
-}
+} */
 
 .section-global {
     color: rgb(37, 37, 37);
@@ -206,23 +218,25 @@ h1 {
     
 }
 
-.aff-title {
-    /* width: 130px; */
-    display: flex;
-    justify-content: start;
-    font-family: "Roboto Flex";
-    font-size: 22px;
-    font-weight: bold;
-    border-left: 2px solid;
-    /* border-top: 2px solid; */
-    /* border-top: 150px; */
-    border-color: #ffe32e;
-    /* border-top-left-radius: 7px; */
-    padding-left: 10px;
+.section-title.affiliations {
+    width: 140px;
+    padding-left: 5px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
     margin-bottom: 20px;
-    border-radius: 3px;
-    
 }
+
+.section-title.latest-article {
+    width: 173px;
+    padding-left: 5px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    margin-bottom: 20px;
+}
+
+
 
 .affiliations {
     display: block;
@@ -269,7 +283,7 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
     opacity: 1;
-    transition:  box-shadow 0.25s, opacity 0.25s;
+    transition:  box-shadow 0.25s, opacity 0.25s, border-color 0.25s;
 }
 
 
@@ -277,7 +291,8 @@ h1 {
 .affiliation-card:hover {
     opacity: 0.8;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-color: #ecd123;
+    box-shadow: 0 2px 6px rgba(254, 202, 31, 0.1);
 
 }
 
@@ -362,14 +377,16 @@ h1 {
     border-width: 1px;
     display:flex;
     /* align-items: auto; */
-    transition: box-shadow 0.15s;
+    transition: box-shadow 0.15s, border-color 0.15s;
 
 
 }
 
 .latest-article-card:hover {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    border-color: #ecd123;
+    box-shadow: 0 2px 6px rgba(254, 202, 31, 0.1);
+
 }
 
 .latest-article-card-left {

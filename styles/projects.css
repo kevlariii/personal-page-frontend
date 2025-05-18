@@ -86,6 +86,19 @@ body {
     color: rgb(100, 149, 255);
 }
 
+.hi {
+    width: 120px;
+    padding-left: 5px;
+
+}
+h1 {
+    font-family: "Roboto Flex";
+    border-bottom: 6px solid;
+    border-color:  #ffe32e;
+    margin-top: 40px;
+
+
+}
 .project-card {
     display: flex;
     margin-top: 40px;
@@ -229,4 +242,48 @@ height: 16px;
 .project-thumbnail:hover {
     cursor:pointer;
     opacity: 0.7;
+}
+
+.footer {
+    font-family: "Roboto Flex";
+    color: rgb(26, 26, 26);
+    /* margin-top: 30px; */
+    font-size: 11px;
+    background-color: #ffe32e;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    display: block;
+    justify-content: center;
+    padding: auto;
+    margin-top: 40px;
+
+
+}
+
+.footer-text {
+    text-align: center;
+    margin-bottom: 10px;
+}
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-github img, .footer-linkedin img, .footer-hf img {
+    height: 18px;
+}
+
+.footer-github, .footer-hf, .footer-linkedin {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.25s;
+}
+
+.footer-github:hover, .footer-hf:hover, .footer-linkedin:hover {
+    cursor: pointer;
+    background-color: #ecd123;
+
 }
