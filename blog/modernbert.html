@@ -518,17 +518,18 @@
                     </code>
                 </pre>
 
-                <h2 class="article-section-title">Conclusion</h2>
                 <p>Although we didn’t mention it earlier, <code class="objs">accelerate</code> will automatically use DDP (Distributed Data Parallel). Each GPU hosts a model copy that processes different batches. While the forward passes run independently, gradients are averaged across GPUs during backpropagation.</p>
+                
+                <h2 class="article-section-title">Resources</h2>
                 <p>Here are some great resources to dive deeper into DDP and LoRA.</p>
                 <ul>
                     <li>
                         <a class="article-hyperlink" href="https://arxiv.org/abs/2106.09685">LoRA 
-                            Low-Rank Adaptation of Large Language Models</a>
+                            Low-Rank Adaptation of Large Language Models</a>:
                             The original LoRA paper by Hu et al.       </a>
                     </li>
                     <li>
-                        <a class="article-hyperlink" href="https://arxiv.org/abs/2006.15704">PyTorch Distributed: Experiences on Accelerating Data Parallel Training</a>
+                        <a class="article-hyperlink" href="https://arxiv.org/abs/2006.15704">PyTorch Distributed: Experiences on Accelerating Data Parallel Training</a>:
                         The original DDP Pytorch implementation paper by Li et al.
                     </li>
                 </ul>
@@ -572,6 +573,30 @@
 
       
     </body>
+
+    <footer class="footer">
+        <div class="footer-text">
+            Made with &#10084 from Mohammed Sbaihi.
+        </div>
+  
+        <div class="contact-links">
+            <div class="footer-hf" onclick="window.open('https://huggingface.co/MoSBAIHI', '_blank')">
+                <img class="hf-logo" src="/assets/hf-logo-black.png">
+            </div>
+            <div class="footer-github" onclick="window.open('https://github.com/kevlariii', '_blank')">
+                <img class="github-logo" src="/assets/github-logo.png">
+            </div>
+            <div class="footer-linkedin" onclick="window.open('https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/', '_blank')">
+                <img class="linkedin-logo" src="/assets/linkedin-logo.png">
+            </div>
+    
+  
+  
+    
+         
+      
+      </footer>
+  
 
 
 

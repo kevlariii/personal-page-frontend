@@ -200,6 +200,10 @@ p {
     font-family: "Roboto Flex";
     font-size: 22px;
     font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 3px;
+    text-decoration-color:#ffe32e;
 }
 
 .article-subsection-title {
@@ -325,9 +329,9 @@ pre {
 code.objs {
     font-family: 'Fira Code', monospace;
     font-size: 0.95rem;
-    background-color:#fff5b1;
-    padding-left: 3px;
-    padding-right: 3px;
+    background-color:#e4e4e4;
+    padding-left: 3.5px;
+    padding-right: 3.5px;
     border-radius: 3px;
 
 
