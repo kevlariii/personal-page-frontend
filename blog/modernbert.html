@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>LoRA ModernBERT</title>
+        <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+        <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="/styles/blog-page.css">
+        <base href="/">
+    </head>  
+
+    <body>
+        <header class="banner">
+            <div>
+                <a class="name" href="../index.html">
+                    Mohammed Sbaihi
+                </a>
+            </div>
+            <nav class="nav-links">
+                <code>
+                    <a class="internal-link" href="/projects/projects.html">.projects()</a>
+                </code>
+                <code>
+                    <a class="internal-link" href="/blog/blogs.html">.blogs()</a>
+                </code>
+                <code>
+                    <a class="external-link github-link" href="https://github.com/kevlariii" target="_blank">.github()</a>
+                </code>
+                <code>    
+                    <a class="external-link linkedin-link" href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank">.linkedin()</a>
+                </code>
+                <code>
+                    <a class="external-link huggingface-link" href="https://huggingface.co/MoSBAIHI" target="_blank">.huggingface()</a>
+                </code> 
+            </nav>
+   
+        </header>
+
+        <div class="article-container">
+            <div class="article-title">Fine-Tuning ModernBERT with LoRA for Classification — Single or Multi-GPU with PyTorch & Accelerate</div>
+            <div class="article-header">
+                <div class="article-authors">
+                    Mohammed Sbaihi, Abdellah Oumida
+                </div>
+                <div class="project-github-link">
+                    <img class="github-logo" src="/assets/github-logo.png">
+    
+                    <a class="project-github" href="https://github.com/lemon42-ai/ThreatDetect-code-vulnerability-detection/tree/main" target="_blank">
+                        code
+                    </a>
+                </div>
+
+                <div class="article-affiliation">
+                    <div class="article-aff-logo">
+                        <img src="/assets/lemonlogo.png" alt="Logo 1" class="affiliation-logo">
+
+                    </div>
+                    
+                    <p class="article-aff">lemon42-ai</p>   
+                </div>
+    
+                <div class="article-date">February 2025</div>
+    
+    
+            </div>
+            <div class="article-figure">
+                <figure id="thumbnail">
+                    <img src="/assets/blogs-assets/modernbert/thmubnail.jpg" alt="figure-5" style="width:800px">
+                </figure>
+            </div>
+
+            <div class="article-text">
+                <h2 class="article-section-title">Introduction</h2>
+                <p>This is a straightforward guide to help you fine-tune ModernBERT on any classification task. Any number of labels. Any type of input (code, text, etc.). We’ll walk through the full code and explain everything. <br>
+                    Whether you’re using a single GPU or multiple GPUs, this guide has you covered.<br>
+                    ModernBERT is a small model, and when combined with LoRA, it can be fine-tuned on a free Colab T4 (15GB VRAM). We ran the process on 4 Tesla V100s, but we believe it can work on a single 8GB GPU — just expect to use a smaller batch size (around 8 or 4), which trades memory usage for time.
+                    We’ll be using low-level PyTorch and <code class="objs">accelerate</code> to handle multi-GPU training.
+
+
+
+                </p>
+
+                <p>First, let's import some packages: <br>
+                    We’ll use <code class="objs">pandas</code> and <code class="objs">torch</code> for data preparation and model training, <code class="objs">sklearn</code> for evaluation metrics, <code class="objs">peft</code> for LoRA, <code class="objs">transformers</code> for loading the model and tokenizer, and <code class="objs">accelerate</code> for multi-GPU training. And of course, <code class="objs">os</code> to manage directories and store logs.
+
+            </p>
+                <p>Don’t forget to install these packages if they’re not already in your environment.
+                    </p>
+
+                
+
+                <pre><code class="language-python">
+                        
+                    import os
+                    import random
+                    import pandas as pd
+                    import torch
+                    from torch.utils.data import Dataset, DataLoader, random_split
+                    from sklearn.metrics import accuracy_score
+                    from peft import LoraConfig, TaskType, get_peft_model
+                    from transformers import ModernBertForSequenceClassification, AutoTokenizer, DataCollatorWithPadding
+                    from accelerate import Accelerator
+
+                </code></pre>
+
+                <p>Now let’s define a few variables. I like to keep them here at the top so it’s easy to tweak later.</p>
+                <p>In this tutorial, our dataset is already uploaded to Hugging Face. If you’re using a local file, that’s fine too! Just expect a few tweaks in the dataset loading code.
+
+                </p>
+                <p>Also, we won’t be using the <code class="objs">dataset_id</code> directly. Instead, we use the Parquet path, which you can grab from the “Use this dataset” → “pandas” tab on Hugging Face. This allows us to load the dataset with pandas without converting from the Hugging Face <code class="objs">Dataset</code> object.
+
+                </p>
+                <p>We’ll also define a few hyperparameters here, but we’ll come back to those later.
+
+                    </p>
+                <pre>
+                    <code class="language-python">
+                        MODEL_NAME = "answerdotai/ModernBERT-base"
+
+                        DATASET_NAME = "hf://datasets/lemon42-ai/minified-diverseful-multilabels/data/train-00000-of-00001.parquet"
+                        MAX_LENGTH = 600
+                        BATCH_SIZE = 32
+                        NUM_EPOCHS = 20
+                        LEARNING_RATE = 5e-4
+                        LOGGING_STEPS = 100
+
+                    </code>
+                </pre>
+
+                <h2 class="article-section-title">Dataset Definition</h2>
+                <p>Next, we need to prepare the data. We'll create a class that inherits from PyTorch's <code class="objs">Dataset</code>. We named it <code class="objs">TextDataset</code>, but feel free to choose any name—just remember to update all references to it accordingly.</p>
+
+
+                <pre>
+                    <code class="language-python">
+                        class TextDataset(Dataset):
+                            def __init__(self, dataset_id, tokenizer, max_length):
+                    
+                                self.data = pd.read_parquet(dataset_id) #read the parquet (adapt to your situation)
+                                self.tokenizer = tokenizer 
+                                self.max_length = max_length 
+                    
+                                self.data = self.data[["func", "cwe"]] #in our dataset, we have more than two columns, so we truncate to keep inputs (func) & outputs (cwe) columns only.
+                                self.data.columns = ["Text", "Label"] #rename columns to "Text" & "Label"
+                    
+                                self.data = self.data[self.data["Label"].notnull()] #remove rows with null labels, if not done beforehand.
+                                unique_labels = sorted(self.data["Label"].unique()) #get the unique labels
+
+                                #create tha mappings from label to idx (we'll need them later)
+                                self.label2idx = {label: idx for idx, label in enumerate(unique_labels)} 
+                                self.idx2label = {idx: label for label, idx in self.label2idx.items()}
+                
+
+                    </code>
+                </pre>
+
+                <p>We also define the <code class="objs">__len__()</code> and <code class="objs">__getitem__()</code> methods under the same class for use during training:</p>
+                
+                <pre>
+                    <code class="language-python">
+                    class TextDataset(Dataset):
+                        def __init__(self, dataset_id, tokenizer, max_length):
+
+                        ...
+
+                        def __len__(self):
+                            return len(self.data)
+                
+
+                        #the __getitem__() method takes a row idx and returns a dictionary {"input_id", "labels"}
+                        def __getitem__(self, idx):
+                            row = self.data.iloc[idx]
+                            text = row["Text"]
+                            label = row["Label"]
+                
+                            # Tokenize text & truncate to max_length (maxiumum number of tokens allowed per sequence)
+                            token_ids = self.tokenizer.encode(text, add_special_tokens=True, truncation=True, max_length=self.max_length)
+                
+                
+                            label_idx = self.label2idx[label]
+                            return {
+                                "input_ids": token_ids,
+                                "labels": label_idx,
+                            }
+
+                    </code>
+                </pre>
+                
+                <p>Note that we do not manually create attention masks here, as we’ll use a <code class="objs">DataCollator</code> to handle padding later. The attention mask tells the model which tokens to attend to (1 = real token, 0 = padding). Since the collator handles this automatically, we don’t need to worry about it here.</p>
+
+
+                <h2 class="article-section-title">Main Training and Evaluation Loop</h2>
+                <p>Now that the dataset class is ready, let's set up some hyperparameters</p>
+                <pre>
+                    <code class="language-python">
+                        #get the values of model_name, dataset_name & max_length that we fixed in the beginning of our code
+                        model_name = MODEL_NAME
+                        dataset_id = DATASET_NAME
+                        max_length = MAX_LENGTH 
+                    
+                        # Training hyperparameters
+                        num_train_epochs = NUM_EPOCHS
+                        learning_rate = LEARNING_RATE
+                        weight_decay = 0.01
+                        per_device_train_batch_size = BATCH_SIZE
+                        per_device_eval_batch_size = BATCH_SIZE
+                        logging_steps = LOGGING_STEPS
+
+                    </code>
+                </pre>
+                <p>Let's discuss the key hyperparameters:
+                    <ul>
+                        <li>
+                            <code class="objs">num_train_epochs</code>: the total number of passes over the training dataset. We set it to 20, but you can experiment with lower values.
+                        </li>
+                        <li>
+                            <code class="objs">learning_rate</code>: the step size for updating weights. Typically, values around <code class="objs">10**5</code> are used, but since we employ LoRA, we can afford larger values (~<code class="objs">10**4</code> or <code class="objs">10**3</code>).
+                        </li>
+                        <li>
+                            weight_decay: a regularization term to penalize large weights.
+                        </li>
+                        <li>
+                            <code class="objs">per_device_train_batch_size</code>: batch size per GPU during training. When using multiple GPUs, the effective batch size equals <code class="objs">per_device_train_batch_size * num_gpus</code>. For GPUs with limited VRAM, a smaller batch size is recommended.
+                        </li>
+                        <li>
+                            <code class="objs">per_device_eval_batch_size</code>: batch size per GPU during evaluation. This can be the same or larger than the training batch size since gradients are not computed, freeing up VRAM.
+                        </li>
+                        <li>
+                            <code class="objs">logging_steps</code>: the interval (in steps) between logging metrics such as loss. Avoid very small values to keep logs clean and manageable.
+                        </li>
+                    </ul>
+                </p>
+                
+
+                <p>Since there are only general guidelines for setting these hyperparameters, we encourage you to experiment and find the values that best suit your situation.</p>
+                <p>Next, we’ll use HuggingFace’s <code class="objs">accelerate</code> to set up multi-GPU training. This won’t cause any issues even if you have just a single GPU. In fact, using <code class="objs">accelerate</code> makes it easier to scale to multiple GPUs later and also simplifies enabling mixed precision with fp16.</p>
+                                <pre>
+                    <code class="language-python">
+                        accelerator = Accelerator()
+                    </code>
+                </pre>
+
+
+                <p>Now that we have our <code class="objs">accelerator</code> set up & ready, we can move on to load the tokenizer & prepare the data with a <code class="objs">DataCollator</code></p>
+                <pre>
+                    <code class="language-python">
+                        # ----- Load Tokenizer and Prepare Dataset -----
+                        accelerator.print("Loading tokenizer...") #we use accelerator.print() instead of print() when using multiple gpus
+                        tokenizer = AutoTokenizer.from_pretrained(model_name) #load tokenizer
+
+                        data_collator = DataCollatorWithPadding(tokenizer=tokenizer) #prepare a data_collator
+                    
+                        accelerator.print("Instantiating the full dataset...")
+                        full_dataset = TextDataset(dataset_id, tokenizer, max_length)
+                        num_labels = len(full_dataset.label2idx)
+                        accelerator.print(f"Number of labels: {num_labels}")
+                    
+                    </code>
+                </pre>
+
+                <p>
+                    The <code class="objs">data_collator</code> is very useful because it performs <strong>dynamic padding</strong>: it pads each sequence in the batch to match the length of the longest sequence <strong>within that batch</strong> (instead of a fixed maximum length). This avoids unnecessary padding and saves memory. We pass the tokenizer as an argument so it uses the tokenizer’s pad token. It also takes care of converting inputs to tensors for us.
+                </p>
+                
+                <p>Next, let’s split our dataset into training and evaluation sets—the usual way.</p>
+                    <pre>
+                    <code class="language-python">
+                        # Split into training (90%) and validation (10%) sets.
+                        dataset_size = len(full_dataset)
+                        train_size = int(0.9 * dataset_size)
+                        val_size = dataset_size - train_size
+                        accelerator.print(
+                            f"Total dataset size: {dataset_size}, Training size: {train_size}, Validation size: {val_size}"
+                        )
+                        train_dataset, val_dataset = random_split(
+                            full_dataset,
+                            [train_size, val_size],
+                            generator=torch.Generator().manual_seed(42),
+                        )
+                    
+                    
+                    </code>
+                </pre>
+
+                <p>And then create two dataloaders: one for training & the other for evaluation (or validation)</p>
+                <pre>
+                    <code class="language-python">
+                        # Create DataLoaders.
+                        train_dataloader = DataLoader(
+                            train_dataset,
+                            batch_size=per_device_train_batch_size,
+                            shuffle=True,
+                            collate_fn=data_collator,
+                        )
+                        val_dataloader = DataLoader(
+                            val_dataset,
+                            batch_size=per_device_eval_batch_size,
+                            shuffle=False,
+                            collate_fn=data_collator,
+                        )
+                    
+                    
+                    </code>
+                </pre>
+
+                <p>Next, let's load our model using <code class="objs">ModernBertForSequenceClassification</code> which will add a final layer to the model's architecture including <code class="objs">num_labels</code> neurons.</p>
+                <pre>
+                    <code class="language-python">
+                        accelerator.print("Loading model...")
+                        model = ModernBertForSequenceClassification.from_pretrained(
+                            model_name, num_labels=num_labels, ignore_mismatched_sizes=True
+                        )
+
+                    </code>
+                </pre>
+
+
+                <p>Let's setup our LoRA configuration</p>
+                <pre>
+                    <code class="language-python">
+                        lora_config = LoraConfig(
+                            task_type=TaskType.SEQ_CLS,  #sequence classification task
+                            inference_mode=False,
+                            r=8,           #rank of the LoRA update matrices (hyperparameter)
+                            lora_alpha=32, #scaling factor
+                            lora_dropout=0.1,  # dropout probability applied to LoRA layers
+                            target_modules=["attn.Wqkv"],  #this is how the layer is called in ModernBERT.
+                        )
+
+                        model = get_peft_model(model, lora_config)
+                        accelerator.print("LoRA-modified model loaded.")
+                    
+                        device = accelerator.device
+                        model.to(device)
+                    
+                    </code>
+                </pre>
+
+                <p>Notice that we didn't setup the device manually. This is because <code class="objs">accelerate</code> does device placement automatically.</p>
+                <p><strong>Why LoRA?</strong> LoRA reduces the number of trainable parameters. Instead of updating all the weights during backpropagation, we only update small trainable matrices. This means most of the model stays frozen and untouched. As a result, we don’t need to store gradients or optimizer states for the majority of parameters, significantly reducing memory requirements. This makes the fine-tuning process much better suited for low-resource environments. We’ll share some great resources to learn more about LoRA in the Resources section.</p>
+                <p>Next, let's create our optimizer & scheduler.</p>
+                <pre>
+                    <code class="language-python">
+                        # Create optimizer. Here we use AdamW with weight decay.
+                        optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+                    
+                        # Optionally: set up a learning rate scheduler
+                        scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2, eta_min=1e-6)
+                        
+
+                        #Most importantly, don't forget to prepare everything with your accelerator
+                        model, optimizer, train_dataloader, val_dataloader, scheduler = accelerator.prepare(
+                            model, optimizer, train_dataloader, val_dataloader, scheduler
+                        )
+                    </code>
+                </pre>
+
+                <p>Now that everything is ready, let's write our training loop using plain PyTorch.</p>
+                <pre>
+                    <code class="language-python">
+                        best_val_accuracy = 0.0
+                        global_step = 0
+                    
+                        # ----- Training Loop -----
+                        for epoch in range(num_train_epochs):
+                            model.train()
+                            running_loss = 0.0
+                            for step, batch in enumerate(train_dataloader):
+                        
+                                outputs = model(**batch)
+                                loss = outputs.loss
+                                accelerator.backward(loss) #backprop using the accelerator
+                    
+                                optimizer.step()
+                    
+                                scheduler.step()                               
+                    
+                                optimizer.zero_grad()                  
+                                       
+                                running_loss += loss.item()
+                                global_step += 1
+                    
+                                if global_step % logging_steps == 0:
+                                    avg_loss = running_loss / logging_steps
+                                    accelerator.print(f"Epoch [{epoch+1}/{num_train_epochs}], Step [{step+1}/{len(train_dataloader)}], Loss: {avg_loss:.4f}")
+                                    running_loss = 0.0
+             
+                    </code>
+                </pre>
+
+                <p>Don’t forget to run evaluation at the end of each epoch.</p>
+                <pre>
+                    <code class="language-python">
+
+                        for epoch in range(num_train_epochs):
+                            model.train()
+                            running_loss = 0.0
+                            for step, batch in enumerate(train_dataloader):
+
+                                ... #previous code
+
+
+                            # ----- Validation at the End of Each Epoch -----
+                            model.eval()
+                            all_preds = []
+                            all_labels = []
+                            eval_loss = 0.0
+                            num_batches = 0
+                    
+                            with torch.no_grad():
+                                for batch in val_dataloader:
+                                    outputs = model(**batch)
+                                    eval_loss += outputs.loss.item()
+                    
+                                    logits = outputs.logits
+                                    preds = torch.argmax(logits, dim=-1)
+                                    all_preds.extend(preds.cpu().numpy())
+                                    all_labels.extend(batch["labels"].cpu().numpy())
+                                    num_batches += 1
+                    
+                            avg_eval_loss = eval_loss / num_batches
+                            val_accuracy = accuracy_score(all_labels, all_preds)
+                            accelerator.print(f"Epoch [{epoch+1}/{num_train_epochs}] Validation Loss: {avg_eval_loss:.4f} | Accuracy: {val_accuracy:.4f}")
+                
+                
+                    </code>
+
+                </pre>
+
+                <p>And of course, save the best-performing model after every epoch.</p>
+                <pre>
+                    <code class="language-python">
+                        for epoch in range(num_train_epochs):
+                            model.train()
+                            running_loss = 0.0
+                            for step, batch in enumerate(train_dataloader):
+
+                                ... #previous code
+                
+                            with torch.no_grad():
+                                for batch in val_dataloader:
+                                   
+                                    ... #previous code
+                
+
+                            if val_accuracy > best_val_accuracy:
+                            best_val_accuracy = val_accuracy
+                            best_model_state = model.state_dict()
+                            accelerator.print("Best model updated.")
+                
+
+                    </code>
+                </pre>
+
+                <p>Once training is complete, we can save the final best model. Note that we’re not saving the full model, but only the LoRA adapters—since we wrapped our model with <code class="objs">get_peft_model()</code>. This further reduces memory usage.</p>
+                <pre>
+                    <code class="language-python">
+                        # ----- Load and Save the Best Model -----
+                        model.load_state_dict(best_model_state)
+
+                        output_dir = "./lora_modernbert_finetuned"
+                        os.makedirs(output_dir, exist_ok=True)
+                        accelerator.print("Saving best model and tokenizer...")
+                        if hasattr(model, "module"):
+                            model.module.save_pretrained(output_dir)
+                        else:
+                            model.save_pretrained(output_dir)
+                        tokenizer.save_pretrained(output_dir)
+                        accelerator.print(f"Model saved to {output_dir}")
+
+                    </code>
+                </pre>
+
+                <p>Finally, let's wrap everything in a <code class="objs">main()</code> function and place it in a <code class="objs">train.py</code> file (or any name you prefer).</p>
+
+                <pre>
+                    <code class="language-python">
+                        def main():
+                            
+                            ...
+
+                        if __name__ == "__main__":
+                            main()
+                    </code>
+                </pre>
+                <h2 class="article-section-title">Launch with Accelerate</h2>
+                <pre>
+                    <code class="language-bash">
+                        #ON A SINGLE GPU
+                        accelerate launch --mixed_precision=fp16 train.py #you can remove mixed_precision if you want
+
+                        #ON MULTIPLE GPUs
+                        accelerate launch --multi_gpu --mixed_precision "fp16" --num_processes 4 train.py
+                    </code>
+                </pre>
+
+                <p>Once you’ve got a solid checkpoint, you can merge it with the base model for inference or further evaluation.</p>
+                <pre>
+                    <code class="language-python">
+                        from peft import PeftModel
+                        base_model = ModernBertForSequenceClassification.from_pretrained(
+                            model_name, num_labels=num_labels, ignore_mismatched_sizes=True)
+                        model = PeftModel.from_pretrained(base_model, checkpoint_dir)
+                    </code>
+                </pre>
+
+                <h2 class="article-section-title">Conclusion</h2>
+                <p>Although we didn’t mention it earlier, <code class="objs">accelerate</code> will automatically use DDP (Distributed Data Parallel). Each GPU hosts a model copy that processes different batches. While the forward passes run independently, gradients are averaged across GPUs during backpropagation.</p>
+                <p>Here are some great resources to dive deeper into DDP and LoRA.</p>
+                <ul>
+                    <li>
+                        <a class="article-hyperlink" href="https://arxiv.org/abs/2106.09685">LoRA 
+                            Low-Rank Adaptation of Large Language Models</a>
+                            The original LoRA paper by Hu et al.       </a>
+                    </li>
+                    <li>
+                        <a class="article-hyperlink" href="https://arxiv.org/abs/2006.15704">PyTorch Distributed: Experiences on Accelerating Data Parallel Training</a>
+                        The original DDP Pytorch implementation paper by Li et al.
+                    </li>
+                </ul>
+
+                <p>Thanks for reading! If you have any questions, feel free to open an issue in this <a class="article-hyperlink" href="https://github.com/lemon42-ai/ThreatDetect-code-vulnerability-detection/tree/main">repository</a>.</p>
+
+
+
+
+
+
+                        
+
+
+            </div>
+
+    
+
+
+
+
+
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+        <!-- Python language component -->
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+        <!-- Bash language component -->
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+        <!-- WhiteSpace-plugin -->
+        <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
+        <script>
+            Prism.plugins.NormalizeWhitespace.setDefaults({
+              'remove-trailing': true,
+              'remove-indent': true,
+              'left-trim': true,
+              'right-trim': true
+            });
+        </script>
+
+      
+    </body>
+
+
+
+
+</html>

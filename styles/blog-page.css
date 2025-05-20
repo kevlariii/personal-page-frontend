@@ -193,6 +193,7 @@ p {
     font-family: "Roboto Flex";
     font-size: 16px;
     font-weight: 350;
+    line-height: 25px;
 }
 
 .article-section-title {
@@ -290,6 +291,53 @@ ul, li {
     width: 100%;
     overflow-x: auto;
 }
+
+.article-affiliation {
+    
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* margin-top: 10px; */
+    /* margin-bottom: 10px; */
+}
+
+.article-aff-logo img {
+    width: 25px;
+}
+
+.article-aff {
+    margin: 0;
+ 
+    color: rgb(0, 0, 0);
+    font-family: "Roboto Flex";
+    font-size: 15px;
+    font-weight: 300;
+}
+
+pre {
+    border-radius: 10px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    /* background-color: #2d2d2d; */
+  }
+
+code.objs {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    background-color:#fff5b1;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 3px;
+
+
+}
+
+code language-python {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+  }
+
 
 
 
