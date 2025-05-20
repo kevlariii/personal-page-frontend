@@ -85,9 +85,9 @@
 
             <div class="article-text">
                 <h2 class="article-section-title">Introduction</h2>
-                <p>This is a straightforward guide to help you fine-tune ModernBERT on any classification task. Any number of labels. Any type of input (code, text, etc.). We’ll walk through the full code and explain everything. <br>
+                <p>This is a straightforward guide to help you fine-tune <a class="article-hyperlink" href="https://arxiv.org/abs/2412.13663">ModernBERT</a> on any classification task. Any number of labels. Any type of input (code, text, etc.). We’ll walk through the full code and explain everything. <br>
                     Whether you’re using a single GPU or multiple GPUs, this guide has you covered.<br>
-                    ModernBERT is a small model, and when combined with LoRA, it can be fine-tuned on a free Colab T4 (15GB VRAM). We ran the process on 4 Tesla V100s, but we believe it can work on a single 8GB GPU — just expect to use a smaller batch size (around 8 or 4), which trades memory usage for time.
+                   <a class="article-hyperlink" href="https://huggingface.co/answerdotai/ModernBERT-base">ModernBERT-base</a> is a small model, and when combined with <strong>LoRA</strong>, it can be fine-tuned on a free Colab T4 (15GB VRAM). We ran the process on 4 Tesla V100s, but we believe it can work on a single 8GB GPU — just expect to use a smaller batch size (around 8 or 4), which trades memory usage for time.<br>
                     We’ll be using low-level PyTorch and <code class="objs">accelerate</code> to handle multi-GPU training.
 
 
