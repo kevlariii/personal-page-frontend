@@ -180,6 +180,25 @@ body {
     line-height: 1.6;
 }
 
+.hero-description a {
+    color: #4a4dfb;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.hero-description a:hover {
+    border-bottom-color: #4a4dfb;
+}
+
+.hero-description a:visited {
+    color: #4a4dfb;
+}
+
+.hero-description a:active {
+    color: #4a4dfb;
+}
+
 .hero-image {
     flex-shrink: 0;
 }
@@ -524,6 +543,7 @@ body {
     .hero-description {
         font-size: 1.1rem;
     }
+
     
     .profile-image {
         width: 200px;
