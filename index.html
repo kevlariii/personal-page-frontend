@@ -1,210 +1,172 @@
 <!DOCTYPE html>
-
-<html>
-    <head>
-        <title>Mohammed Sbaihi</title>
-        <!-- <link rel="icon" type="image/png" href="/assets/favicon.png"> -->
-        <link rel="icon" type="image/png" href="/assets/favicon3.png">
-        <lin k rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
-        
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-
-        
-        <link rel="stylesheet" href="styles/home.css">
-
-    </head>
-    <body>
-
-        <header class="banner">
-            <div>
-                <a class="name" href="index.html">
-                    Mohammed Sbaihi
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Sbaihi</title>
+    <link rel="icon" type="image/png" href="assets/favicongrad.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a class="name" href="home.html">
+                    Mohammed <span style="color: #0044fd;">Sbaihi</span>
                 </a>
             </div>
-            <nav class="nav-links">
-                <code>
-                    <a class="internal-link" href="/projects/projects.html">.projects()</a>
-                </code>
-                <code>
-                    <a class="internal-link" href="/blog/blogs.html">.blogs()</a>
-                </code>
-                <code>
-                    <a class="external-link github-link" href="https://github.com/kevlariii" target="_blank">.github()</a>
-                </code>
-                <code>    
-                    <a class="external-link linkedin-link" href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank">.linkedin()</a>
-                </code>
-                <code>
-                    <a class="external-link huggingface-link" href="https://huggingface.co/MoSBAIHI" target="_blank">.huggingface()</a>
-                </code> 
-            </nav>
-   
-        </header>
-
-
-
-
-        <div class="about-section">
-            <div class="about-section-text-layout">
-                <div class="hi">
-                    <h1>
-                        Hey, I'm Mohammed
-    
-                    </h1>
+            <div class="nav-right">
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="nav-links">
+                    <a href="blogs/blogs.html" class="nav-link">Blogs</a>
+                    <a href="projects.html" class="nav-link">Projects</a>
+                    <a href="resume.html" class="nav-link">Resume</a>
+                </nav>
+                <div class="social-icons">
+                    <a href="https://github.com/kevlariii" target="_blank" class="social-link">
+                        <img src="assets/github-logo.png" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://huggingface.co/MoSBAIHI" target="_blank" class="social-link">
+                        <img src="assets/huggingface-logo.png" alt="Hugging Face" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank" class="social-link">
+                        <img src="assets/linkedin-logo.png" alt="LinkedIn" class="social-icon">
+                    </a>
                 </div>
-                <div class="hi-text">
-                    AI Engineering student, open-source creator & musician. <br><br>
-                    I develop tools to help AI engineers secure their AI solutions: Image generation, video generation & code generation. <br><br>
-                    I have also been making music that I love listening to since 2018. <br>
-                    <br>
-                    Welcome to my personal website!
-                    
-    
-                </div>
-    
             </div>
-            <div class="about-section-image-layout">
-                <img src="/assets/lemon-sprite.png">
-            </div>
-
-
         </div>
+    </header>
 
-       
-        
-  
+    <main class="main-container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Hello! I'm Mohammed Sbaihi</h1>
+                <p class="hero-description">I'm an AI Engineering student at CentraleSupélec and AI Engineer apprentice at Onepoint. Welcome to my personal page! Find my latest blogs below. You can also find my projects on the Projects page. For my most up to date Resume, click here.</p>
+            </div>
+            <div class="hero-image">
+                <img src="assets/personal-image.jpeg" alt="Mohammed Sbaihi" class="profile-image">
+            </div>
+        </section>
 
+        <section class="recent-blogs">
+            <h2 class="section-title">Recent Blogs</h2>
+            <div class="blogs-list">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/blogs-assets/ghibli-flux/ghibli-flux-img1.webp" alt="Blog 1" class="blog-thumbnail">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">
+                            <a href="https://huggingface.co/blog/atlasia/creating-your-custom-ghibli-text-to-image-model" target="_blank">Creating your custom Ghibli Text-to-Image model</a>
+                        </h3>
+                        <p class="blog-date">May 1, 2025</p>
+                        <p class="blog-excerpt">While Ghibli-style AI-generated images have become a global trend, we're taking a unique approach by creating something more culturally meaningful...</p>
+                    </div>
+                </article>
                 
-        
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/blogs-assets/modernbert/thmubnail.jpg" alt="Blog 2" class="blog-thumbnail">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">
+                            <a href="blogs/lora.html">Fine-Tuning ModernBERT with LoRA for Classification — Single or Multi-GPU with PyTorch & Accelerate</a>
+                        </h3>
+                        <p class="blog-date">Feb 10, 2025</p>
+                        <p class="blog-excerpt">This is a straightforward guide to help you fine-tune ModernBERT on any classification task. Any number of labels. Any type of input (code, text, etc.). We’ll walk through the full code...</p>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="assets/blogs-assets/tokenizer/show_tokens.png" alt="Blog 3" class="blog-thumbnail">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">
+                            <a href="blogs/modernbert.html">Code-Aware Tokenization: ModernBERT</a>
+                        </h3>
+                        <p class="blog-date">Jan 13, 2025</p>
+                        <p class="blog-excerpt">ModernBERT(2024) is the latest encoder-only model at the time of this blog's creation. The authors present it as a Smarter, Better, Faster, and Longer version of BERT, designed to impr...</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+
+        <section class="research-contributions">
+            <h2 class="section-title">Research Contributions</h2>
+            <div class="research-list">
+                <article class="research-card">
+                    <div class="research-image">
+                        <img src="assets/diffguard-thumbnail.webp" alt="DiffGuard Research" class="research-thumbnail">
+                    </div>
+                    <div class="research-content">
+                        <h3 class="research-title">
+                            <a href="https://arxiv.org/abs/2412.00064" target="_blank">Diffguard: Text-Based Safety Checker for Diffusion Models</a>
+                        </h3>
+                        <p class="research-date">November 2024</p>
+                        <p class="research-excerpt">Accepted in poster session at CAID (Conference of AI for Defence) 2025.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
 
 
         
         <section class="affiliations">
-            <div class="section-title affiliations">
-                <h2>
-                    Affiliations
-                </h2>
-            </div>
-                
-                <div class="affiliations-container">
-                    <div class="affiliation-card" onclick="window.open('https://www.atlasia.ma/', '_blank')">
-
-                            <div class="card-header">
-                                <img src="/assets/atlasiama_logo.png" alt="Logo 1" class="affiliation-logo">
-                                <span class="affiliation-name">AtlasIA</span>
-                            </div>
-                            <p class="affiliation-description">
-                                ATLASIA is an open-source initiative committed to developing AI models that resonate with Moroccan values, identity, and culture.                        </p>
-                            <div class="affiliation-dates"> Data Team Member &#9733 2025 - Present</div>
-                    </div>
-                    
-        
-                    <div class="affiliation-card" onclick="window.open('https://www.centralesupelec.fr/', '_blank')">
-
-                        <div class="card-header">
-                            <img src="/assets/cs-logo.png" alt="Logo 2" class="affiliation-logo">
-                            <span class="affiliation-name">CentraleSupélec</span>
-                        </div>
-                        <p class="affiliation-description">
-                            Leading French Engineering School (Grande Ecole)          </p>
-                        <div class="affiliation-dates"> AI Eng. Student &#9733 2022 - Present</div>
+            <h2 class="section-title">Professional & Academic Affiliations</h2>
+            <div class="affiliations-grid">
+                <div class="affiliation-card">
+                    <img src="assets/cs-logo.png" alt="CentraleSupélec" class="affiliation-logo">
+                    <h3 class="affiliation-name">CentraleSupélec</h3>
+                    <p class="affiliation-description">AI Engineering Student</p>
                 </div>
-        
-                <div class="affiliation-card" onclick="window.open('https://github.com/lemon42-ai', '_blank')">
-                    <div class="card-header">
-                    
-                            <img src="/assets/lemonlogo.png" alt="Logo 3" class="affiliation-logo">
-                            <span class="affiliation-name">lemon42-ai</span>
-                        </div>
-                        <p class="affiliation-description">
-                            France based Open Source community committed to developping safety tools for AI solutions.
-                        </p>
-                        <div class="affiliation-dates"> co-founder &#9733 2025 - Present</div>
-                    
-
+                <div class="affiliation-card">
+                    <img src="assets/onepoint-logo-mini.png" alt="Onepoint" class="affiliation-logo">
+                    <h3 class="affiliation-name">Onepoint</h3>
+                    <p class="affiliation-description">AI Engineer Apprentice</p>
                 </div>
-        
+                <div class="affiliation-card">
+                    <img src="assets/atlasiama_logo.png" alt="AtlasIA" class="affiliation-logo">
+                    <h3 class="affiliation-name">AtlasIA</h3>
+                    <p class="affiliation-description">Data Team Member</p>
+                </div>
             </div>
         </section>
-        
-
-        <section class="latest-article-section">
-            <div class="section-title latest-article">
-                <h2>
-                    Latest Article
-                </h2>
-            </div>
-
-            <div class="latest-article-card" onclick="window.open('https://www.atlasia.ma//blog/ghibli-lora-morocco', '_blank')">
-
-                <div class="latest-article-card-left">
-                    <div class="latest-article-title-container">
-                        <p class="latest-article-title">Creating your custom Ghibli Text-to-Image model</p>
-                    </div>
-                    <div class="latest-article-affiliation">
-                        <div class="latest-article-aff-logo">
-                            <img src="/assets/atlasiama_logo.png" alt="Logo 1" class="affiliation-logo">
-
-                        </div>
-                        
-                        <p class="latest-article-aff">AtlasIA</p>
-                    </div>
-                    <div class="latest-article-text-container">
-                        <p class="latest-article-text">
-                            While Ghibli-style AI-generated images have become a global trend, we're taking a unique approach by creating something more culturally meaningful. We've developed a specialized Text-to-Image model fine-tuned from the Flux.1-dev diffusion model using LoRA... <span class="read-more-latest-article">Read More</span>
-
-                        </p>
 
 
-                    </div>
-                    <div class="latest-article-date-container">
-                        <p class="latest-article-date">1st May 2025</p>
-                    </div>
-
-
-                </div>
-
-                <div class="latest-article-right">
-                    <img class="latest-article-img" src="/assets/blogs-assets/ghibli-flux/ghibli-flux-img1.webp">
-
-                </div>
-            </div>        
-
-
-
-        </section>
-       
-       
-
-    </body>
+    </main>
 
     <footer class="footer">
-        <div class="footer-text">
-            Made with &#10084 from Mohammed Sbaihi.
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://github.com/kevlariii" target="_blank" class="footer-social-link">
+                    <img src="assets/github-logo.png" alt="GitHub" class="footer-social-icon">
+                </a>
+                <a href="https://huggingface.co/MoSBAIHI" target="_blank" class="footer-social-link">
+                    <img src="assets/huggingface-logo-white.png" alt="Hugging Face" class="footer-social-icon">
+                </a>
+                <a href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank" class="footer-social-link">
+                    <img src="assets/linkedin-logo.png" alt="LinkedIn" class="footer-social-icon">
+                </a>
+            </div>
+            <p class="footer-text">Developed by Mohammed Sbaihi, 2025</p>
         </div>
+    </footer>
 
-        <div class="contact-links">
-            <div class="footer-hf" onclick="window.open('https://huggingface.co/MoSBAIHI', '_blank')">
-                <img class="hf-logo" src="/assets/hf-logo-black.png">
-            </div>
-            <div class="footer-github" onclick="window.open('https://github.com/kevlariii', '_blank')">
-                <img class="github-logo" src="/assets/github-logo.png">
-            </div>
-            <div class="footer-linkedin" onclick="window.open('https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/', '_blank')">
-                <img class="linkedin-logo" src="/assets/linkedin-logo.png">
-            </div>
-    
-
-
-    
-         
-      
-      </footer>
-
-
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
 </html>

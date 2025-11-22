@@ -1,307 +1,465 @@
-body {
-
-    background-color: #f7f7f7;
-    padding-top: 16px;
-    padding-left: 100px;
-    padding-right: 100px;
-    padding-bottom: 16px;
-    min-width: 700px;
-    
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.banner {
-    background-color: rgb(255, 255, 255);
-    color: rgb(37, 37, 37);
-    border-radius: 8px;
-    padding: 24px 24px;
-    /* margin-left: 50px; */
-    /* margin-right: 50px; */
-    font-family: Roboto;
-    border-width: 1px;
-    border-color:rgb(206, 212, 218);
-    border-style: solid;
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+}
+
+/* Navbar styles (copied from index.css) */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 2rem;
+}
+
+.nav-left .name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-right {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    position: sticky;
-    top: 10px;
-    backdrop-filter: blur(8px); /* blur effect */
-    -webkit-backdrop-filter: blur(8px); /* for Safari */
-    background-color: rgba(255, 255, 255, 0.7); /* translucent so blur is visible */
-    z-index: 1000; /* stay above content */
-
+    gap: 2rem;
 }
 
-.internal-link, .external-link {
-    /* font-family: "Roboto Flex"; */
-    display: flex;
-    color:black;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.15s;
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
 }
 
-.internal-link:hover {
-    text-decoration: underline;
-
+.hamburger span {
+    width: 20px;
+    height: 2px;
+    background: #333;
+    transition: 0.3s;
 }
 
-.huggingface-link:hover {
-
-    color: #FF9E00;
-}
-
-.linkedin-link:hover {
-
-    color: #0A66C2;
-}
-
-.github-link:hover {
-
-    color: #76278B;
-}
 .nav-links {
     display: flex;
-    gap: 16px;
-    color: black;
-    flex-wrap: wrap;
-
-
-}
-
-.name {
-    display: flex;
-    color: black;
-    font-family: "Roboto Flex";
-    font-size: 16px;
-    font-weight: 350;
-    text-decoration: none;
-    transition: color 0.15s;
-}
-
-.name:hover {
-    color: rgb(100, 149, 255);
-}
-
-
-.hi {
-    width: 112px;
-    padding-left: 5px;
-
-}
-h1 {
-    font-family: "Roboto Flex";
-    border-bottom: 6px solid;
-    border-color:  #ffe32e;
-    margin-top: 40px;
-
-
-}
-
-.blog-card {
-    display: flex;
-    margin-top: 40px;
-    padding:10px;
+    gap: 2rem;
     align-items: center;
-    gap: 20px;
-    border-top: solid;
-    border-bottom: solid;
-    border-width: 0.6px;
-    border-color: rgb(183, 183, 183);
-
 }
 
-
-
-
-
-.blog-title {
-    font-family: "Roboto Flex";
-    font-size: 20px;
-    font-weight: bold;
-    transition: color 0.15s;
-}
-
-.blog-title:hover {
-    cursor: pointer;
-    color:rgb(100, 149, 255);
-}
-
-.blog-authors {
-    font-family: "Roboto Flex";
-    font-size: 14px;
-    font-weight: 350;
-    margin-top: 5px;
-}
-
-.blog-affiliation {
-    
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.blog-aff-logo img {
-    width: 30px;
-}
-
-.blog-aff {
-    margin: 0;
-    font-family: "Roboto Flex";
-    font-size: 14px;
-    margin-bottom: 2px;
+.nav-link {
+    font-size: 1rem;
     font-weight: 400;
-    color: rgb(90, 89, 89);
-}
-
-.blog-description {
-    margin-top:7px;
-    font-family: "Roboto Flex";
-    font-size: 13px;
-    font-weight: 300;
-    margin-bottom: 10px;
-}
-
-.read-blog {
-    font-family: "Roboto Flex";
-    font-size: 13px;
-    font-weight: 480;
-    color:black;
+    color: #666;
     text-decoration: none;
-    transition: color 0.15s;
+    transition: color 0.3s ease;
+    position: relative;
 }
 
-.read-blog:hover {
-    color:#0A66C2;
+.nav-link:hover {
+    color: #0044fd;
 }
 
-.read-blog.atlasia:hover {
-    color:#434343;
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #0044fd;
+    transition: width 0.2s ease;
 }
 
-.read-blog.hf:hover {
-    color:  #FF9E00;
-}
-.blog-date {
-    font-family: "Roboto Flex";
-    font-size: 12px;
-    font-weight: 300;
-    color:gray;
+.nav-link:hover::after {
+    width: 100%;
 }
 
-.blog-links-container {
+.social-icons {
     display: flex;
-    gap: 20px;
-    justify-content: start;
-    margin-top: 10px;
-    /* border-top: solid; */
-    /* border-width: 0.6px; */
-    /* border-color: rgb(183, 183, 183); */
-
-}
-
-.blog-github-link, .blog-hf-link, .blog-arxiv-link {
-    margin-top: 7px;
-    display: flex;
-    gap: 8px;
+    gap: 1rem;
     align-items: center;
-    
 }
 
-
-
-
-.github-logo, .hf-logo, .arxiv-logo {
-height: 16px;
-}
-
-.blog-github, .blog-hf, .blog-arxiv {
-
-    font-family: "Roboto Flex";
-    font-weight: 300;
-    font-size: 14px;
-    color: gray;
-    text-decoration: none;
-    transition: color 0.15s;
-}
-
-.blog-github:hover {
-    color: #76278B;
-    cursor: pointer;
-}
-
-.blog-hf:hover {
-    color: #FF9E00;
-    cursor: pointer;
-
-}
-
-.blog-arxiv:hover {
-    color: rgb(185, 50, 50);
-    cursor: pointer;
-
-}
-
-
-
-.blog-thumbnail {
-    width:200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: opacity 0.15s;
-}
-
-.blog-thumbnail:hover {
-    cursor:pointer;
-    opacity: 0.7;
-}
-
-.footer {
-    font-family: "Roboto Flex";
-    color: rgb(26, 26, 26);
-    /* margin-top: 30px; */
-    font-size: 11px;
-    background-color: #ffe32e;
-    padding-bottom: 30px;
-    padding-top: 30px;
-    display: block;
+.social-link {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    padding: auto;
-    margin-top: 40px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: #e6e6e6;
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
+    filter: opacity(0.8);
+    transition: filter 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+    filter: opacity(1);
+}
+
+/* Blog-specific styles */
+.blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+    width: 100%;
+    flex: 1;
+}
+
+.blog-post {
+    background: white;
+}
+
+.blog-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 1rem;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Markdown content styling */
+.blog-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+}
+
+.blog-content h1 {
+    font-size: 2rem;
+}
+
+.blog-content h2 {
+    font-size: 1.75rem;
+}
+
+.blog-content h3 {
+    font-size: 1.5rem;
+}
+
+.blog-content h4 {
+    font-size: 1.25rem;
+}
+
+.blog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-content p[align="center"] {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.blog-content p[align="center"] + p {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+}
+
+.blog-content p[align="center"] + p strong {
+    font-weight: 600;
+    color: #333;
+    font-style: normal;
+}
+
+.blog-content a {
+    color: #0044fd;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.blog-content a:hover {
+    border-bottom-color: #0044fd;
+}
+
+.blog-content ul,
+.blog-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.blog-content li {
+    margin-bottom: 0.5rem;
+}
+
+.blog-content blockquote {
+    border-left: 4px solid #0044fd;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #666;
+}
+
+.blog-content pre {
+    background: #f6f8fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1px solid #e5e5e5;
+}
+
+.blog-content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    background: #f6f8fa;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    /* color: white */
+}
+
+.blog-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Table styles */
+.blog-content .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 2rem 0;
+}
+
+.blog-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.blog-content th,
+.blog-content td {
+    padding: 0.75rem;
+    border: 1px solid #e5e5e5;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.blog-content th {
+    background: #f6f8fa;
+    font-weight: 600;
+}
 
 
+/* Footer styles (copied from index.css) */
+.footer {
+    background: linear-gradient(110deg, #0044fd 0%, #3d54ff 40%, #5f64ff 80%, #8a8dfe 100%);
+    padding: 2rem 0;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.footer-social-link:hover {
+    background: rgba(255, 255, 255, 0.152);
+}
+
+.footer-social-icon {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
 }
 
 .footer-text {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 400;
     text-align: center;
-    margin-bottom: 10px;
-}
-.contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
 }
 
-.footer-github img, .footer-linkedin img, .footer-hf img {
-    height: 18px;
+/* Add padding to body to account for fixed navbar */
+body {
+    padding-top: 70px;
 }
 
-.footer-github, .footer-hf, .footer-linkedin {
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    border-radius: 4px;
-    transition: background-color 0.25s;
+/* Responsive design */
+@media (max-width: 768px) {
+    .nav-container {
+        height: 60px;
+        padding: 0 1rem;
+    }
+
+    .blog-container {
+        padding: 2rem 1rem 3rem;
+    }
+    
+    .nav-right {
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
+    }
+    
+    .nav-left .name {
+        font-size: 1.3rem;
+    }
+    
+    body {
+        padding-top: 60px;
+    }
+
+    .blog-post-title {
+        font-size: 2rem;
+    }
+
+    .blog-content {
+        font-size: 1rem;
+    }
+    
+    .footer-content {
+        padding: 0 1rem;
+    }
 }
 
-.footer-github:hover, .footer-hf:hover, .footer-linkedin:hover {
-    cursor: pointer;
-    background-color: #ecd123;
+@media (max-width: 480px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links.active {
+        display:flex;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .social-icons {
+        gap: 0.5rem;
+    }
+    
+    .social-link {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .social-icon {
+        width: 16px;
+        height: 16px;
+    }
 
+    .blog-post-title {
+        font-size: 1.75rem;
+    }
 }
