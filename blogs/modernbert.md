@@ -7,7 +7,7 @@ One of the key claims in the paper is that ModernBERT's tokenizer—built using 
 The objective of this analysis is to rigorously evaluate ModernBERT's tokenizer in the context of **code tokenization** and compare its performance to that of [BERT](https://arxiv.org/pdf/1810.04805)(2018) and [CodeBERT](https://arxiv.org/pdf/2002.08155)(2020). Through various tests, this study aims to provide **quantifiable insights** into ModernBERT’s ability to handle programming constructs. Ultimately, this should help developers and researchers decide whether ModernBERT is the right choice for their applications, such as **retrieval-augmented generation (RAG)** and other **code-related tasks.**  
 
 <p align="center">
-    <img src="../assests2/blogs-assets/tokenizer/show_tokens.png" alt="Figure 5: " width="700">
+    <img src="../assets/blogs-assets/tokenizer/show_tokens.png" alt="Figure 5: " width="700">
 </p>
 
 A visual comparaison between the tokenizers of BERT, CodeBERT and ModernBERT.
@@ -18,7 +18,7 @@ Before diving into the evaluations, it is true that BERT is an older model, but 
 On the other hand, **CodeBERT** was trained on a large **code corpus** and has a vocabulary size similar to **ModernBERT** (**50K**). *[See Figure 1](#figure-1-model-vocabulary-sizes)*
 
 <p align="center">
-    <img src="../assests2/blogs-assets/tokenizer/vocab_size.png" alt="Figure 1: Tokenizer Vocabulary Sizes" width="400">
+    <img src="../assets/blogs-assets/tokenizer/vocab_size.png" alt="Figure 1: Tokenizer Vocabulary Sizes" width="400">
 </p> 
 
 Figure 1: Model Vocab Sizes
@@ -32,7 +32,7 @@ For example, does a sequence of **two spaces ("  ")** get tokenized as a single 
 
 
 <p align="center">
-    <img src="../assests2/blogs-assets/tokenizer/whitspaces_and_tabs.png" alt="Figure 2: Longest Whitespace/Tab Sequence With A Single Token" width="400">
+    <img src="../assets/blogs-assets/tokenizer/whitspaces_and_tabs.png" alt="Figure 2: Longest Whitespace/Tab Sequence With A Single Token" width="400">
 </p> 
 
 Figure 2: Longest Whitespace/Tab Sequence With A Single Token
@@ -113,7 +113,7 @@ An interesting insight here is that **BERT**, which was not trained on code, per
 **ModernBERT**, on the other hand, consistently shows that it is well-aligned with programming languages.
 
 <p align="center">
-    <img src="../assests2/blogs-assets/tokenizer/keywords_share.png" alt="Figure 3: " width="400">
+    <img src="../assets/blogs-assets/tokenizer/keywords_share.png" alt="Figure 3: " width="400">
 </p>
 
 Figure 3: Share of Keywords (Python, Java, C++) Tokenized as a Single Token.
@@ -150,7 +150,7 @@ For operators, we will use the following documentation pages:
 | **C++**                     | 36              |
 
 <p align="center">
-    <img src="../assests2/blogs-assets/tokenizer/operators_share.png" alt="Figure 4: " width="400">
+    <img src="../assets/blogs-assets/tokenizer/operators_share.png" alt="Figure 4: " width="400">
 </p>
 
 Figure 4: Share of Operators (Python, Java, C++) Tokenized as a Single Token.
