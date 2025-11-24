@@ -30,7 +30,7 @@
                 <nav class="nav-links">
                     <a href="blogs.html" class="nav-link">Blogs</a>
                     <a href="../projects/projects.html" class="nav-link">Projects</a>
-                    <a href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank" class="nav-link">Resume</a>
+                    <a href="../resume.html" class="nav-link">Resume</a>
                 </nav>
                 <div class="social-icons">
                     <a href="https://github.com/kevlariii" target="_blank" class="social-link">
@@ -52,7 +52,7 @@
             <header class="blog-header">
                 <h1 class="blog-post-title">ModernBERT vs BERT: A Comprehensive Comparison</h1>
                 <div class="blog-meta">
-                    <time datetime="2025-01-20">Nov 24, 2025</time>
+                    <time datetime="2025-01-20">January 20, 2025</time>
                 </div>
             </header>
             
@@ -88,7 +88,17 @@
             document.querySelector('.nav-links').classList.toggle('active');
         });
 
-        // Initialize markdown-it with KaTeX for math rendering
+        // Function to slugify heading text (GitHub-style)
+        function slugify(text) {
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        // Initialize markdown-it
         const md = window.markdownit({
             html: true,
             linkify: true,
@@ -107,6 +117,24 @@
             katexOptions: { macros: {"\\RR": "\\mathbb{R}"} }
         });
 
+        // Override heading renderer to add IDs
+        const defaultHeadingRender = md.renderer.rules.heading_open || function(tokens, idx, options, env, self) {
+            return self.renderToken(tokens, idx, options);
+        };
+
+        md.renderer.rules.heading_open = function (tokens, idx, options, env, self) {
+            const token = tokens[idx];
+            const nextToken = tokens[idx + 1];
+            
+            if (nextToken && nextToken.type === 'inline') {
+                const headingText = nextToken.content;
+                const id = slugify(headingText);
+                token.attrSet('id', id);
+            }
+            
+            return defaultHeadingRender(tokens, idx, options, env, self);
+        };
+
         // Fetch and render markdown
         fetch('modernbert-bert-comp.md')
             .then(response => response.text())
@@ -120,6 +148,23 @@
                     wrapper.className = 'table-wrapper';
                     table.parentNode.insertBefore(wrapper, table);
                     wrapper.appendChild(table);
+                });
+
+                // Add smooth scrolling for TOC links
+                document.querySelectorAll('.blog-content .toc a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            const navbarHeight = 70;
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
                 });
             })
             .catch(error => console.error('Error loading markdown:', error));

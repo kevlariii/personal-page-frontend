@@ -8,12 +8,43 @@ But tokenization isn't the only aspect where ModernBERT evolves from BERT. Moder
 
 Figure 1: Architectures of the BASE version of BERT and ModernBERT
 
+<div class="toc">
+
+## Table of Contents
+1. [Architecture](#1-architecture)
+   - [Embedding Layer](#11-embedding-layer)
+   - [Encoder Layers](#12-encoder-layers)
+     - [Attention Mechanism](#121-attention-mechanism)
+     - [MLP](#122-mlp)
+     - [Normalization](#123-normalization)
+     - [Dropout](#124-dropout)
+2. [Training Objectives](#2-training-objectives)
+   - [Masked Language Modeling (MLM)](#21-masked-language-modeling-mlm)
+     - [MLM in BERT](#211-mlm-in-bert)
+     - [MLM in ModernBERT](#212-mlm-in-modernbert)
+   - [Next Sentence Prediction (NSP)](#22-next-sentence-prediction-nsp)
+3. [Training Data](#3-training-data)
+   - [BERT Training Data](#31-bert-training-data)
+   - [ModernBERT Training Data](#32-modernbert-training-data)
+4. [Training Paradigms](#4-training-paradigms)
+   - [BERT Training Paradigm](#41-bert-training-paradigm)
+   - [ModernBERT Training Paradigm](#42-modernbert-training-paradigm)
+5. [Conclusion](#5-conclusion)
+
+</div>
+
 ## 1. Architecture
 Both BERT and ModernBERT are based on the [Transformer architecture](https://arxiv.org/abs/1706.03762). They both utilize the encoder part of the Transformer, which is designed for Representation Learning (i.e., the goal is to learn rich representations of the input text) as opposed to decoder architectures used in models like GPT, which are optimized for text generation. However, ModernBERT incorporates several architectural improvements over BERT. These improvements are especially inspired by advancements in decoder models. We'll go over them in this section.
 
 ### 1.1 Embedding Layer
 To represent input embeddings, BERT uses a combination of token embeddings, segment embeddings and position embeddings.
 These embeddings are summed together and are learned during training. Token embeddings are the base embeddings for each token in the vocabulary. Segment embeddings are used to differentiate between two sentences in the Next Sentence Prediction (NSP) task, which was one of the two pre-training objectives of BERT (alongside Masked Language Modeling (MLM)). Position embeddings are used to inject positional information into the model since during training (and inference as well in encoder models) tokens are processed in parallel and thus the model has no inherent sense of token order. 
+
+<p align="center">
+    <img src="../assets/blogs-assets/bert-modernbert/bert-embed.png" alt="Figure 2: BERT's Embedding Layer" width="700">
+</p>
+
+Figure 2: BERT's Embedding Layer
 
 Note that while the original BERT paper doesn't state whether they use learned (absolute) position embeddings or sinusoidal position encodings as in the original Transformer paper, but we can confirm that they use learned position embeddings by inspecting the BERT implementation in the HuggingFace `transformers` library.
 
@@ -33,6 +64,12 @@ We see that BERT uses absolute learned position embeddings with a maximum sequen
 
 ModernBERT, on the other hand, only uses learned token embeddings, it doesn't use segment embeddings since it doesn't use the NSP objective during pre-training (we'll discuss this more in the Training Objectives section). And it doesn't use position embeddings either. Instead it uses [Rotary Position Embeddings (RoPE)](https://arxiv.org/abs/2104.09864) to inject positional information into the model. RoPE has been shown to be more effective than absolute position embeddings in capturing relative positions between tokens, which is crucial for understanding context in language. Additionally, RoPE allows ModernBERT to handle longer sequences more effectively than BERT, as it doesn't have a hard cap on input length like BERT does. While it still has a limit of 8192 tokens, this limit is soft and not architecturally enforced. This limit is especially achieved by tuning RoPE scaling parameters during training. Nevertheless, you can go beyone this limit during inference but with potential degradation in performance.
 
+<p align="center">
+    <img src="../assets/blogs-assets/bert-modernbert/modernbert-embed.png" alt="Figure 3: ModernBERT's Embedding Layer" width="700">
+</p>
+
+Figure 3: ModernBERT's Embedding Layer
+
 One common aspect here is that both models have a hidden dimension of 768 in their BASE versions and 1024 in their LARGE versions.
 
 ### 1.2 Encoder Layers
@@ -41,6 +78,12 @@ Both BERT and ModernBERT use the Transformer encoder layers. Each layer consists
 - MLP (Feed-Forward Neural Network)
 - Normalization
 - Residual Connections
+
+<p align="center">
+    <img src="../assets/blogs-assets/bert-modernbert/encoder-blocks.png" alt="Figure 4: Encoder Layers in BERT and ModernBERT" width="700">
+</p>
+
+Figure 4: Encoder Layers in BERT and ModernBERT
 
 But each model has its own tweaks to these building blocks. And we will discuss each one below. But one main difference is that BERT has 12 encoder layers in its BASE version and 24 in its LARGE version, while ModernBERT has 22 encoder layers in its BASE version and 28 in its LARGE version. Which also explain the difference in the number of parameters: 
 
@@ -57,13 +100,13 @@ ModernBERT also uses the same mechanism but with three main differences:
 1. **Alternating Attention**:
     ModernBERT alternates between Global (Full) Attention and Local Attention. Global Attention is used every 3rd layer. See Figure below for a visual representation of these attention patterns.
 
-    This means that in layers where Local Attention is used, each token can only attend to a fixed window $w$ of previous tokens ($w=128$ in BASE version). This significantly reduces the computational complexity of the attention mechanism from $O(L^2)$ in every layer in BERT to $O(L \cdot w)$ in Local Attention layers in ModernBERT, where $L$ is the sequence length. While the Global Attention layers still have a complexity of $O(L^2)$, They only make up 1/3 of the total layers, thus reducing the overall complexity of the model. 
+    This means that in layers where Local Attention is used, each token can only attend to a fixed window $w$ of neighboring tokens ($w=128$ in BASE version). This significantly reduces the computational complexity of the attention mechanism from $O(L^2)$ in every layer in BERT to $O(L \cdot w)$ in Local Attention layers in ModernBERT, where $L$ is the sequence length. While the Global Attention layers still have a complexity of $O(L^2)$, They only make up 1/3 of the total layers, thus reducing the overall complexity of the model.
 
 <p align="center">
-    <img src="../assets/blogs-assets/bert-modernbert/attention.png" alt="Figure 2: Global and Local Attention Patterns in Bidirectional MLM" width="700">
+    <img src="../assets/blogs-assets/bert-modernbert/attention.png" alt="Figure 5: Global and Local Attention Patterns in Bidirectional MLM" width="700">
 </p>
 
-Figure 2: Global and Local Attention Patterns in Bidirectional MLM
+Figure 5: Global and Local Attention Patterns in Bidirectional MLM
 
 2. **RoPE**:
     As I mentioned earlier, ModernBERT uses RoPE to inject positional information into the model. This happens in every attention layer by modifiying the query and key vectors before computing the attention scores.
@@ -83,6 +126,13 @@ Figure 2: Global and Local Attention Patterns in Bidirectional MLM
 However, both models use the same number of attention heads: 12 in BASE versions and 16 in LARGE versions.
 
 #### 1.2.2 MLP
+
+<p align="center">
+    <img src="../assets/blogs-assets/bert-modernbert/ffn-layers.png" alt="Figure 6: Feed Forward Network Layers in BERT and ModernBERT" width="700">
+</p>
+
+Figure 6: Feed Forward Network Layers in BERT and ModernBERT
+
 BERT uses a standard two layer Feed-Forward Neural Network (FFN) with a GELU activation function in between. The hidden dimension of the FFN is 4 times the model's hidden dimension (i.e 4x expansion). 
 
 ```bash
@@ -157,6 +207,13 @@ BERT was the very first encoder-only Transformer model. People reading the BERT 
 ### 2.1 Masked Language Modeling (MLM)
 The idea of MLM is very simple and intuitive. During training, some tokens in the input sequence are randomly masked (replaced with a special `[MASK]` token). The model is then trained to predict the original tokens based on the context provided by the unmasked tokens. In MLM, the context is bidirectional, meaning the model can attend to both left and right context tokens to make predictions, as opposed to Causal Language Modeling (CLM) used in decoder-only models where the model can only attend to left context tokens (previous tokens).
 
+<p align="center">
+    <img src="../assets/blogs-assets/bert-modernbert/mlm.png" alt="Figure 7: Masked Language Modeling" width="700">
+</p>
+
+Figure 7: Masked Language Modeling
+
+
 #### 2.1.1 MLM in BERT
 BERT uses static masking during training. This means that the positions of the masked tokens are fixed for each training example throughout the entire training process. Specifically, 15% of the tokens in each input sequence are selected for masking. Of these selected tokens:
 - 80% are replaced with the `[MASK]` token.
@@ -172,6 +229,13 @@ ModernBERT follows MosaicBERT's approach and uses dynamic masking during trainin
 Unlike BERT, ModernBERT masks 30% of tokens in each input sequence. It doesn't strictly follow BERT's corruption strategy. It mostly replaces masked tokens with the `[MASK]` token, but it also uses random replacements to a lesser extent. This matches the RoBERTa-style MLM, which MosaicBERT follows. The masking ratio of 30% allows the model to learn more robust representations by forcing it to predict a larger portion of the input. We might also infer that ModernBERT used Span-based masking (by masking contiguous spans of tokens), but the authors don't explicitly state this in the paper.
 
 ### 2.2 Next Sentence Prediction (NSP)
+
+<p align="center">
+    <img src="../assets/blogs-assets/bert-modernbert/nsp.png" alt="Figure 8: Next Sentence Prediction" width="700">
+</p>
+
+Figure 8: Next Sentence Prediction
+
 NSP is a binary classification task where the model is given two sentences and must predict whether the second sentence follows the first one in the original text. This objective was designed to help BERT understand the relationship between sentences, which is important for tasks like Question Answering and Natural Language Inference. This is why BERT uses segment embeddings to differentiate between the two sentences. However, later research showed that NSP doesn't significantly improve performance on downstream tasks. This led to the removal of the NSP objective in later models like RoBERTa and ModernBERT.
 
 This difference illustrates the evolution of training objectives in encoder-only models, moving away from sophisticated MLM+NSP strategies towards new MLM techniques that leverage larger datasets, improved architectures and modern optimization methods.
@@ -200,10 +264,10 @@ BERT used a standard training paradigm for Transformer models at the time. It wa
 ### 4.2 ModernBERT Training Paradigm
 ModernBERT was trained in a multi-phase training paradigm as illustrated in the figure below.
 <p align="center">
-    <img src="../assets/blogs-assets/bert-modernbert/newplot.png" alt="Figure 3: ModernBERT learning rate evolution during pre-training" width="700">
+    <img src="../assets/blogs-assets/bert-modernbert/newplot.png" alt="Figure 9: ModernBERT learning rate evolution during pre-training" width="700">
 </p>
 
-Figure 3: ModernBERT learning rate evolution during pre-training
+Figure 9: ModernBERT learning rate evolution during pre-training
 
 
 The model also used StableAdamW optimizer instead of BERT's Adam.
