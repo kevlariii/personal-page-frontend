@@ -1,0 +1,88 @@
+/* Projects page - under construction */
+.construction-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+.construction-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.construction-icon {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.construction-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.construction-message {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0;
+}
+
+.construction-button {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: #0044fd;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.construction-button:hover {
+    background: #0033cc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 68, 253, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .construction-container {
+        padding: 0 1rem;
+        min-height: 50vh;
+    }
+
+    .construction-icon {
+        font-size: 3rem;
+    }
+
+    .construction-title {
+        font-size: 2rem;
+    }
+
+    .construction-message {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .construction-title {
+        font-size: 1.75rem;
+    }
+
+    .construction-icon {
+        font-size: 2.5rem;
+    }
+}

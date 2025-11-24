@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Mohammed Sbaihi</title>
+    <link rel="icon" type="image/png" href="../assets/favicongrad.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/blogs.css">
+    <link rel="stylesheet" href="../styles/projects.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a class="name" href="../index.html">
+                    Mohammed <span style="color: #0044fd;">Sbaihi</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="nav-links">
+                    <a href="../blogs/blogs.html" class="nav-link">Blogs</a>
+                    <a href="projects.html" class="nav-link">Projects</a>
+                    <a href="../resume.html" class="nav-link">Resume</a>
+                </nav>
+                <div class="social-icons">
+                    <a href="https://github.com/kevlariii" target="_blank" class="social-link">
+                        <img src="../assets/github-logo.png" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://huggingface.co/MoSBAIHI" target="_blank" class="social-link">
+                        <img src="../assets/huggingface-logo.png" alt="Hugging Face" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank" class="social-link">
+                        <img src="../assets/linkedin-logo.png" alt="LinkedIn" class="social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="construction-container">
+        <div class="construction-content">
+            <div class="construction-icon">🚧</div>
+            <h1 class="construction-title">Page Under Construction</h1>
+            <p class="construction-message">
+                This page is currently being built. In the meantime, check out my latest blog posts where I share insights about LLMs, Machine Learning, and technical guides.
+            </p>
+            <a href="../blogs/blogs.html" class="construction-button">Visit Blogs Page</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://github.com/kevlariii" target="_blank" class="footer-social-link">
+                    <img src="../assets/github-logo.png" alt="GitHub" class="footer-social-icon">
+                </a>
+                <a href="https://huggingface.co/MoSBAIHI" target="_blank" class="footer-social-link">
+                    <img src="../assets/huggingface-logo-white.png" alt="Hugging Face" class="footer-social-icon">
+                </a>
+                <a href="https://www.linkedin.com/in/mohammed-sbaihi-aa6493254/" target="_blank" class="footer-social-link">
+                    <img src="../assets/linkedin-logo.png" alt="LinkedIn" class="footer-social-icon">
+                </a>
+            </div>
+            <p class="footer-text">Developed by Mohammed Sbaihi, 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
